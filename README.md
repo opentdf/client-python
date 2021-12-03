@@ -1,4 +1,4 @@
-# OpenTDF SDK
+# openTDF SDK
 
 The OpenTDF Python SDK allows developers to easily create and manage encrypted [Trusted Data Format (TDF) objects](https://github.com/virtru/tdf-spec/) and interact with [Key Access and Attribute Provider services (KAS, AP).](https://github.com/virtru/tdf-spec/tree/master/protocol)
 
