@@ -42,7 +42,7 @@ oidc_creds = OIDCCredentials()
 oidc_creds.set_client_credentials(client_id = "tdf-client",
                                  client_secret = "123-456",
                                  organization_name = "tdf",
-                                 oidc_endpoint = "https://localhost:8443")
+                                 oidc_endpoint = "https://localhost:65432")
 
 client = TDFClientBase(oidc_credentials = oidc_creds, kas_url = 'http://localhost:8080/kas')
 
