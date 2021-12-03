@@ -44,7 +44,7 @@ oidc_creds.set_client_credentials(client_id = "tdf-client",
                                  organization_name = "tdf",
                                  oidc_endpoint = "https://localhost:65432")
 
-client = TDFClientBase(oidc_credentials = oidc_creds, kas_url = 'http://localhost:8080/kas')
+client = TDFClientBase(oidc_credentials = oidc_creds, kas_url = 'http://localhost:65432/kas')
 
 client.encrypt_file("sensitive.txt", "sensitive.txt.tdf")
 client.decrypt_file("sensitive.txt.tdf", "sensitive_plain.txt")
