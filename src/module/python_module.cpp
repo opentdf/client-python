@@ -183,13 +183,11 @@ PYBIND11_MODULE(opentdf, tdf) {
               Returns:
                  Subject attribute URIs.
             )pbdoc")
-        .def("add_data_attribute", &TDFClient::addDataAttribute, py::arg("data_attribute"), py::arg("display_name"), py::arg("kas_public_key"), py::arg("kas_url"), R"pbdoc(
+        .def("add_data_attribute", &TDFClient::addDataAttribute, py::arg("data_attribute"), py::arg("kas_url"), R"pbdoc(
                Add data attribute
 
               Args:
                  data_attribute(string): Add a data attribute to the TDF policy. Should be a URI.
-                 display_name(string): 'Friendly name' for attribute. Can be an empty string.
-                 kas_public_key(string): Public key of the KAS instance this attribute is associated with.
                  kas_url(string): URL of the KAS instance this attribute is associated with.
             )pbdoc");
 
@@ -365,13 +363,11 @@ PYBIND11_MODULE(opentdf, tdf) {
               Returns:
                  Subject attribute URIs.
             )pbdoc")
-        .def("add_data_attribute", &NanoTDFClient::addDataAttribute, py::arg("data_attribute"), py::arg("display_name"), py::arg("kas_public_key"), py::arg("kas_url"), R"pbdoc(
+        .def("add_data_attribute", &NanoTDFClient::addDataAttribute, py::arg("data_attribute"), py::arg("kas_url"), R"pbdoc(
                Add data attribute
 
               Args:
                  data_attribute(string): Add a data attribute to the TDF policy. Should be a URI.
-                 display_name(string): 'Friendly name' for attribute. Can be an empty string.
-                 kas_public_key(string): Public key of the KAS instance this attribute is associated with.
                  kas_url(string): URL of the KAS instance this attribute is associated with.
             )pbdoc");
 
@@ -513,13 +509,11 @@ PYBIND11_MODULE(opentdf, tdf) {
               Args:
                  log_level(LogLevel): The log level
             )pbdoc")
-        .def("add_data_attribute", &NanoTDFDatasetClient::addDataAttribute, py::arg("data_attribute"), py::arg("display_name"), py::arg("kas_public_key"), py::arg("kas_url"), R"pbdoc(
+        .def("add_data_attribute", &NanoTDFDatasetClient::addDataAttribute, py::arg("data_attribute"), py::arg("kas_url"), R"pbdoc(
                Add data attribute
 
               Args:
                  data_attribute(string): Add a data attribute to the TDF policy. Should be a URI.
-                 display_name(string): 'Friendly name' for attribute. Can be an empty string.
-                 kas_public_key(string): Public key of the KAS instance this attribute is associated with.
                  kas_url(string): URL of the KAS instance this attribute is associated with.
             )pbdoc");
 }
