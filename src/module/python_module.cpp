@@ -183,6 +183,15 @@ PYBIND11_MODULE(opentdf, tdf) {
               Returns:
                  Subject attribute URIs.
             )pbdoc")
+        .def("get_policy", &TDFClient::getPolicy, py::arg("tdf_data"), R"pbdoc(
+              Gets the policy object (as a JSON string) of the provided TDF data
+
+              Args:
+                 tdf_data(string) - Encrypted TDF data.
+
+              Returns:
+                 JSON string representing a TDF Policy Object.
+            )pbdoc")
         .def("add_data_attribute", &TDFClient::addDataAttribute, py::arg("data_attribute"), py::arg("kas_url"), R"pbdoc(
                Add data attribute
 
@@ -363,6 +372,15 @@ PYBIND11_MODULE(opentdf, tdf) {
               Returns:
                  Subject attribute URIs.
             )pbdoc")
+        .def("get_policy", &NanoTDFClient::getPolicy, py::arg("nanotdf_data"), R"pbdoc(
+              Gets the policy object (as a JSON string) of the provided nanoTDF data
+
+              Args:
+                 nanotdf_data(string) - Encrypted Nano TDF data.
+
+              Returns:
+                 JSON string representing a TDF Policy Object.
+            )pbdoc")
         .def("add_data_attribute", &NanoTDFClient::addDataAttribute, py::arg("data_attribute"), py::arg("kas_url"), R"pbdoc(
                Add data attribute
 
@@ -508,6 +526,17 @@ PYBIND11_MODULE(opentdf, tdf) {
 
               Args:
                  log_level(LogLevel): The log level
+            )pbdoc")
+        .def("get_policy",[](NanoTDFDatasetClient &nanoTdfDatasetClient, const std::string &tdfData) {
+                const auto& data = nanoTdfDatasetClient.getPolicy(tdfData);
+                return py::bytes(data.data(), data.size()); }, py::arg("tdf_data"),  R"pbdoc(
+              Gets the policy object (as a JSON string) of the provided nanoTDF data
+
+              Args:
+                 nanotdf_data(string) - Encrypted Nano TDF data.
+
+              Returns:
+                 JSON string representing a TDF Policy Object.
             )pbdoc")
         .def("add_data_attribute", &NanoTDFDatasetClient::addDataAttribute, py::arg("data_attribute"), py::arg("kas_url"), R"pbdoc(
                Add data attribute
