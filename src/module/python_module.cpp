@@ -183,6 +183,15 @@ PYBIND11_MODULE(opentdf, tdf) {
               Returns:
                  Subject attribute URIs.
             )pbdoc")
+        .def("get_policy", &TDFClient::getPolicy, py::arg("tdf_data"), R"pbdoc(
+              Gets the policy object (as a JSON string) of the provided TDF data
+
+              Args:
+                 tdf_data(string) - Encrypted TDF data.
+
+              Returns:
+                 JSON string representing a TDF Policy Object.
+            )pbdoc")
         .def("add_data_attribute", &TDFClient::addDataAttribute, py::arg("data_attribute"), py::arg("kas_url"), R"pbdoc(
                Add data attribute
 
