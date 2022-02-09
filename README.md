@@ -24,14 +24,21 @@ Use the client creds to create an `OIDCCredentials` instance and pass into the `
 
 ## Access control
 
-OpenTDF enables the access control of the data by enabling attributes. The key access ABAC backend service can be used to add and remove attribute values to the client application.
+OpenTDF enables access control of data by adding attributes to data.
+
+When encrypting data:
+
+- Client applications _apply_ data attributes
+
+When decrypting data:
+
+- Clients (and users) which _have_ all required entity attributes can decrypt via a TDF-compliant backend ABAC key access service.
 
 Applying a data attribute to the TDF can be done using this SDK api.
 
 ```python
 client.add_data_attribute("https://example.com/attr/Classification/value/S", "Classification", "optionalKasKey", "optionalKasUrl")
 ```
-
 
 ## Create TDF Object (minimal example)
 
