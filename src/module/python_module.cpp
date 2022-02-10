@@ -39,7 +39,7 @@ PYBIND11_MODULE(opentdf, tdf) {
         .def(py::init([]() { return new OIDCCredentials();}), R"pbdoc(
               Create an OIDC credentials object
         )pbdoc")
-        .def("set_client_credentials", &OIDCCredentials::setClientCredentials,
+        .def("set_client_credentials_client_secret", &OIDCCredentials::setClientCredentialsClientSecret,
                 py::arg("client_id"), py::arg("client_secret"),
                 py::arg("organization_name"), py::arg("oidc_endpoint"), R"pbdoc(
                 Set the client credentials that will be use for authz with OIDC server
@@ -47,6 +47,22 @@ PYBIND11_MODULE(opentdf, tdf) {
             Args:
                 client_id(string): The client id
                 client_secret(string): The client secret
+                organization_name(string): The OIDC realm or organization the client belongs to
+                oidc_endpoint(string): The OIDC server url
+        )pbdoc")
+        .def("set_client_credentials_pki", &OIDCCredentials::setClientCredentialsPKI,
+                py::arg("client_id"),
+                py::arg("client_key_file_name"),
+                py::arg("client_cert_file_name"),
+                py::arg("certificate_authority"),
+                py::arg("organization_name"), py::arg("oidc_endpoint"), R"pbdoc(
+                Set the client credentials that will be use for authz with OIDC server
+
+            Args:
+                client_id(string): The client id
+                client_key_file_name(string): The name of the file containing the client key
+                client_cert_file_name(string): The name of the file containing the client certificate
+                certificate_authority(string): The certificate authority to use
                 organization_name(string): The OIDC realm or organization the client belongs to
                 oidc_endpoint(string): The OIDC server url
         )pbdoc")
@@ -61,6 +77,15 @@ PYBIND11_MODULE(opentdf, tdf) {
         )pbdoc")
         .def("get_password", &OIDCCredentials::getPassword, R"pbdoc(
             Return the password for associated user
+        )pbdoc")
+        .def("get_client_key_file_name", &OIDCCredentials::getClientKeyFileName, R"pbdoc(
+            Return the name of the file containing the client key
+        )pbdoc")
+        .def("get_client_cert_file_name", &OIDCCredentials::getClientCertFileName, R"pbdoc(
+            Return the name of the file containing the client certificate
+        )pbdoc")
+        .def("get_certificate_authority", &OIDCCredentials::getCertificateAuthority, R"pbdoc(
+            Return the certificate authority
         )pbdoc")
         .def("get_org_name", &OIDCCredentials::getOrgName, R"pbdoc(
             Return the OIDC realm or organization the client belongs to
@@ -176,6 +201,9 @@ PYBIND11_MODULE(opentdf, tdf) {
               Args:
                  log_level(LogLevel): The log level
 
+            )pbdoc")
+        .def("set_xml_format", &TDFClient::setXMLFormat, R"pbdoc(
+              Create TDFs in XML format instead of zip format.
             )pbdoc")
         .def("subject_attributes", &TDFClient::getSubjectAttributes, R"pbdoc(
               Get subject attributes
