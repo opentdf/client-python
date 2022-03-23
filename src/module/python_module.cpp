@@ -13,6 +13,7 @@
 #include <nanotdf_dataset_client.h>
 #include <tdf_client.h>
 #include <oidc_credentials.h>
+#include <version.h>
 
 #define STRINGIFY(x) #x
 using namespace pybind11::literals;
@@ -25,7 +26,7 @@ PYBIND11_MODULE(opentdf, tdf) {
     tdf.doc() = "Python bindings for the TDF SDK library";
 
     // Use the version number from VERSION
-    //tdf.attr("__version__") = // Get from shared instance;
+    tdf.attr("__version__") = opentdf_VERSION;
 
     py::enum_<LogLevel>(tdf, "LogLevel")
         .value("Trace", LogLevel::Trace)
