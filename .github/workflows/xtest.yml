@@ -1,0 +1,13 @@
+name: X-Test
+on: [push]
+jobs:
+  xtest:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: convictional/trigger-workflow-and-wait@v1.6.0
+      with:
+        owner: virtru
+        repo: opentdf/backend
+        github_token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
+        workflow_file_name: xtest.yml
