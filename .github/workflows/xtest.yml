@@ -9,5 +9,5 @@ jobs:
       with:
         owner: virtru
         repo: opentdf/backend
-        github_token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
-        workflow_file_name: xtest.yml
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        workflow_file_name: xtest.yaml
