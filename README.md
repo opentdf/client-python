@@ -1,6 +1,6 @@
-# openTDF SDK
+# OpenTDF SDK
 
-The openTDF Python SDK allows developers to easily create and manage encrypted [Trusted Data Format (TDF) objects](https://github.com/virtru/tdf-spec/) and interact with [Key Access and Attribute Provider services (KAS, AP).](https://github.com/virtru/tdf-spec/tree/master/protocol)
+The OpenTDF Python SDK allows developers to easily create and manage encrypted [Trusted Data Format (TDF) objects](https://github.com/virtru/tdf-spec/) and interact with [Key Access and Attribute Provider services (KAS, AP).](https://github.com/virtru/tdf-spec/tree/master/protocol)
 
 ## Installation
 
@@ -12,13 +12,13 @@ pip3 install opentdf
 
 ## Backend services
 
-To perform any TDF operation, first start the backend services. [Follow the opentdf backend instructions here](https://github.com//opentdf/documentation/tree/main//quickstart) to get going quickly.
+To perform any TDF operation, first start the backend services. [Follow the OpenTDF backend instructions here](https://github.com//opentdf/documentation/tree/main//quickstart) to get going quickly.
 
 ## Authentication 
 
 The OpenTDF team has chosen [Keycloak](https://www.keycloak.org) as its reference implementation IdP.
 
-The OpenTDF SDK uses OIDC as authentication and authorization to verify the client has access on behalf of an entity or the a certain level of access appropriate to its subject attributes. The opentdf SDK currently supports only client attributes, not user or person entity attributes. First, [create a client application in keycloak](https://www.keycloak.org/docs/latest/authorization_services/#_resource_server_create_client)
+The OpenTDF SDK uses OIDC as authentication and authorization to verify the client has access on behalf of an entity or the a certain level of access appropriate to its subject attributes. The OpenTDF SDK currently supports only client attributes, not user or person entity attributes. First, [create a client application in keycloak](https://www.keycloak.org/docs/latest/authorization_services/#_resource_server_create_client)
 
 Use the client creds to create an `OIDCCredentials` instance and pass into the `TDFClientBase` or `NanoTDFClient`. With the client initialized as such, you can use it  to perform encrypt/decrypt operations on behalf of the assigned client profile.
 
