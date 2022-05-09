@@ -14,7 +14,7 @@ setup(
     author='Virtru',
     author_email='developers@virtru.com',
     url='https://developer.virtru.com/',
-    license='MIT',
+    license='BSD-3-Clause-Clear',
     description='Python Wrapper for openTDF SDK',
     long_description='long description here', #load_readme(),
     long_description_content_type='text/markdown',
