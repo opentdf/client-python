@@ -7,7 +7,7 @@ jobs:
     steps:
     - uses: convictional/trigger-workflow-and-wait@v1.6.0
       with:
-        owner: virtru
+        owner: ${{ github.repository_owner }}
         repo: opentdf/backend
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         workflow_file_name: xtest.yaml
