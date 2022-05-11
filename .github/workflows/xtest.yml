@@ -1,5 +1,8 @@
 name: X-Test
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   xtest:
     timeout-minutes: 60
