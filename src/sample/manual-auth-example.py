@@ -1,6 +1,6 @@
 # Copyright Virtru Corporation
 #
-# SPDX - License - Identifier: MIT
+# SPDX - License - Identifier: BSD-3-Clause-Clear
 #
 
 # Normally you'd use the `virtru-sdk` wrapper to handle auth routines
