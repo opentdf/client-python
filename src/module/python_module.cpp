@@ -193,7 +193,7 @@ PYBIND11_MODULE(opentdf, tdf) {
                  tdf_storage_type(TDFStorageType) - Type of the tdf
                  out_filename(string) - The decrypted file name.
             )pbdoc")
-        .def("encrypt_string", [](TDFClient &tdfClient,  const TDFStorageType &tdfStorageType) {
+        .def("encrypt_data", [](TDFClient &tdfClient,  const TDFStorageType &tdfStorageType) {
                 auto encryptedData = tdfClient.encryptData(tdfStorageType);
                 return py::bytes(reinterpret_cast<const char*>(encryptedData.data()), encryptedData.size());
             }, py::arg("tdf_storage_type"), R"pbdoc(
@@ -205,7 +205,7 @@ PYBIND11_MODULE(opentdf, tdf) {
               Returns:
                  TDF data.
             )pbdoc")
-        .def("decrypt_string", [](TDFClient &tdfClient,  const TDFStorageType &tdfStorageType) {
+        .def("decrypt_data", [](TDFClient &tdfClient,  const TDFStorageType &tdfStorageType) {
                 auto plainData = tdfClient.decryptData(tdfStorageType);
                 return std::string(plainData.begin(), plainData.end());
         }, py::arg("tdf_storage_type"), R"pbdoc(
@@ -383,8 +383,8 @@ PYBIND11_MODULE(opentdf, tdf) {
                  out_filename(string) - The decrypted file name.
 
             )pbdoc")
-        .def("encrypt_string", [](NanoTDFClient &nanoTdfClient, const TDFStorageType &tdf_storage_tye) {
-                auto encryptedData = nanoTdfClient.encryptData(tdf_storage_tye);
+        .def("encrypt_data", [](NanoTDFClient &nanoTdfClient, const TDFStorageType &tdf_storage_type) {
+                auto encryptedData = nanoTdfClient.encryptData(tdf_storage_type);
                 return py::bytes(reinterpret_cast<const char*>(encryptedData.data()), encryptedData.size());
             }, py::arg("plain_text"), R"pbdoc(
               Encrypt the string
