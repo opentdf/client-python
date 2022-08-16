@@ -25,9 +25,9 @@ jobs:
       - name: Install Conan
         run: pip3 install conan==1.48.2
 
-      - name: Git clone client-python 
+      - name: Git clone opentdf
         run: |
-          git clone https://github.com/opentdf/client-python.git
+          git clone https://github.com/opentdf/opentdf.git
       
       - uses: yokawasa/action-setup-kube-tools@v0.7.1
         with:
