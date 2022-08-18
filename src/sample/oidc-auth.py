@@ -8,7 +8,7 @@ KAS_URL = "http://localhost:65432/kas"
 try:
     # Create OIDC credentials object
     oidc_creds = OIDCCredentials()
-    oidc_creds.set_client_credentials(client_id = "tdf-client",
+    oidc_creds.set_client_credentials_client_secret(client_id = "tdf-client",
                                  client_secret = "123-456",
                                  organization_name = "tdf",
                                  oidc_endpoint = OIDC_ENDPONT)
@@ -20,7 +20,7 @@ try:
     # TDF - File API
     ################################################
 
-    client.with_data_attributes(['https://example.com/attr/Classification/value/S'])
+    client.add_data_attribute("https://example.com/attr/Classification/value/S", KAS_URL)
     attr = client.subject_attributes()
     print(f'Attributes are:{attr}')
 

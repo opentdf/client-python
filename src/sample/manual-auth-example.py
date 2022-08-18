@@ -1,6 +1,6 @@
 # Copyright Virtru Corporation
 #
-# SPDX - License - Identifier: BSD-3-Clause-Clear
+# SPDX - License Identifier: BSD-3-Clause-Clear
 #
 
 # Normally you'd use the `virtru-sdk` wrapper to handle auth routines
@@ -89,14 +89,14 @@ def doVirtruEncryptDecrypt(authToken):
 
         client.enable_console_logging(LogLevel.Trace)
         #################################################
-        # TDF3 - File API
+        # TDF - File API
         ################################################
 
         client.encrypt_file("sample.txt", "sample.txt.tdf")
         client.decrypt_file("sample.txt.tdf", "sample_out.txt")
 
         #################################################
-        # TDF3 - Data API
+        # TDF - Data API
         #################################################
 
         plain_text = 'Hello world!!'
@@ -104,9 +104,9 @@ def doVirtruEncryptDecrypt(authToken):
         decrypted_plain_text = client.decrypt_string(tdf_data)
 
         if plain_text == decrypted_plain_text:
-            print("TDF3 Encrypt/Decrypt is successful!!")
+            print("TDF Encrypt/Decrypt is successful!!")
         else:
-            print("Error: TDF3 Encrypt/Decrypt failed!!")
+            print("Error: TDF Encrypt/Decrypt failed!!")
 
     except:
         print("Unexpected error: %s" % sys.exc_info()[0])
@@ -114,13 +114,8 @@ def doVirtruEncryptDecrypt(authToken):
 
 
 def main():
-    print("main 1")
     token1 = exchangeClientCredentialsForTDFToken()
-    print("main 2")
     doVirtruEncryptDecrypt(token1)
 
-    print("main 3")
     token2 = exchange3rdPartyIdPTokenForTDFToken()
-    print("main 4")
     doVirtruEncryptDecrypt(token2)
-    print("main 5")
