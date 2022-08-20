@@ -22,8 +22,8 @@ try:
     ################################################
 
     client.add_data_attribute("https://example.com/attr/Classification/value/S", KAS_URL)
-    attr = client.data_attributes()
-    print(f'Attributes are:{attr}')
+    #attr = client.subject_attributes()
+    #print(f'Attributes are:{attr}')
 
     client.encrypt_file("sample.txt", "sample.txt.tdf")
     client.decrypt_file("sample.txt.tdf", "sample_out.txt")
