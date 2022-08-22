@@ -1,5 +1,5 @@
 import sys
-from opentdf import TDFClient, NanoTDFClient, OIDCCredentials, LogLevel
+from opentdf import TDFClient, NanoTDFClient, OIDCCredentials, LogLevel, TDFStorageType
 
 # encrypt the file and apply the policy on tdf file and also decrypt.
 OIDC_ENDPONT = "http://localhost:65432/"
@@ -25,8 +25,13 @@ try:
     #attr = client.subject_attributes()
     #print(f'Attributes are:{attr}')
 
-    client.encrypt_file("sample.txt", "sample.txt.tdf")
-    client.decrypt_file("sample.txt.tdf", "sample_out.txt")
+    sampleTxtStorage = TDFStorageType()
+    sampleTxtStorage.set_tdf_storage_file_type("sample.txt");
+    client.encrypt_file(sampleTxtStorage, "sample.txt.tdf")
+
+    sampleTdfStorage = TDFStorageType()
+    sampleTdfStorage.set_tdf_storage_file_type("sample.txt.tdf");
+    client.decrypt_file(sampleTdfStorage, "sample_out.txt")
 
     #################################################
     # TDF - Data API
@@ -51,8 +56,13 @@ try:
                                  kas_url = KAS_URL)
     nano_tdf_client.enable_console_logging(LogLevel.Warn)
 
-    nano_tdf_client.encrypt_file("sample.txt", "sample.txt.ntdf")
-    nano_tdf_client.decrypt_file("sample.txt.ntdf", "sample_out.txt")
+    sampleTxtStorageNano = TDFStorageType()
+    sampleTxtStorageNano.set_tdf_storage_file_type("sample.txt");
+    nano_tdf_client.encrypt_file(sampleTxtStorageNano, "sample.txt.ntdf")
+
+    sampleTdfStorageNano = TDFStorageType()
+    sampleTdfStorageNano.set_tdf_storage_file_type("sample.txt.ntdf");
+    nano_tdf_client.decrypt_file(sampleTdfStorageNano, "sample_out.nano.txt")
 
     #################################################
     # Nano TDF - Data API
