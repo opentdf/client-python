@@ -73,19 +73,19 @@ try:
     # Nano TDF - Data API
     #################################################
 
-#    plain_text = 'Hello world!!'
-#    sampleStringStorageNano = TDFStorageType()
-#    sampleStringStorageNano.set_tdf_storage_string_type(plain_text)
-#    nan_tdf_data = nano_tdf_client.encrypt_data(plain_text)
-#
-#    sampleEncryptedStringStorageNano = TDFStorageType()
-#    sampleEncryptedStringStorageNano.set_tdf_storage_string_type(nan_tdf_data)
-#    decrypted_plain_text = nano_tdf_client.decrypt_data(sampleEncrypteStringStorageNano)
-#
-#    if plain_text == decrypted_plain_text:
-#        print("Nano TDF Encrypt/Decrypt is successful!!")
-#    else:
-#        print("Error: Nano TDF Encrypt/Decrypt failed!!")
+    plain_text = 'Hello world!!'
+    sampleStringStorageNano = TDFStorageType()
+    sampleStringStorageNano.set_tdf_storage_string_type(plain_text)
+    nan_tdf_data = nano_tdf_client.encrypt_data(sampleStringStorageNano)
+
+    sampleEncryptedStringStorageNano = TDFStorageType()
+    sampleEncryptedStringStorageNano.set_tdf_storage_string_type(nan_tdf_data)
+    decrypted_plain_text = nano_tdf_client.decrypt_data(sampleEncrypteStringStorageNano)
+
+    if plain_text == decrypted_plain_text:
+        print("Nano TDF Encrypt/Decrypt is successful!!")
+    else:
+        print("Error: Nano TDF Encrypt/Decrypt failed!!")
 
 except:
     print("Unexpected error: %s" % sys.exc_info()[0])
