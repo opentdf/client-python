@@ -44,7 +44,7 @@ try:
 
     sampleEncryptedStringStorage = TDFStorageType()
     sampleEncryptedStringStorage.set_tdf_storage_string_type(tdf_data);
-    decrypted_plain_text = client.decrypt_string(sampleEncryptedStringStorage)
+    decrypted_plain_text = client.decrypt_data(sampleEncryptedStringStorage)
 
     if plain_text == decrypted_plain_text:
         print("TDF Encrypt/Decrypt is successful!!")
