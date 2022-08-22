@@ -38,8 +38,13 @@ try:
     #################################################
 
     plain_text = 'Hello world!!'
-    tdf_data = client.encrypt_string(plain_text)
-    decrypted_plain_text = client.decrypt_string(tdf_data)
+    sampleStringStorage = TDFStorageType()
+    sampleStringStorage.set_tdf_storage_string_type(plain_text);
+    tdf_data = client.encrypt_data(sampleStringStorage)
+
+    sampleEncryptedStringStorage = TDFStorageType()
+    sampleEncryptedStringStorage.set_tdf_storage_string_type(tdf_data);
+    decrypted_plain_text = client.decrypt_string(sampleEncryptedStringStorage)
 
     if plain_text == decrypted_plain_text:
         print("TDF Encrypt/Decrypt is successful!!")
