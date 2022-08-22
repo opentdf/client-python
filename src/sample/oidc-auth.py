@@ -80,7 +80,7 @@ try:
 
     sampleEncryptedStringStorageNano = TDFStorageType()
     sampleEncryptedStringStorageNano.set_tdf_storage_string_type(nan_tdf_data)
-    decrypted_plain_text = nano_tdf_client.decrypt_data(sampleEncrypteStringStorageNano)
+    decrypted_plain_text = nano_tdf_client.decrypt_data(sampleEncryptedStringStorageNano)
 
     if plain_text == decrypted_plain_text:
         print("Nano TDF Encrypt/Decrypt is successful!!")
