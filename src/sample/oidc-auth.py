@@ -26,11 +26,11 @@ try:
     #print(f'Attributes are:{attr}')
 
     sampleTxtStorage = TDFStorageType()
-    sampleTxtStorage.set_tdf_storage_file_type("sample.txt");
+    sampleTxtStorage.set_tdf_storage_file_type("sample.txt")
     client.encrypt_file(sampleTxtStorage, "sample.txt.tdf")
 
     sampleTdfStorage = TDFStorageType()
-    sampleTdfStorage.set_tdf_storage_file_type("sample.txt.tdf");
+    sampleTdfStorage.set_tdf_storage_file_type("sample.txt.tdf")
     client.decrypt_file(sampleTdfStorage, "sample_out.txt")
 
     #################################################
@@ -39,11 +39,11 @@ try:
 
     plain_text = 'Hello world!!'
     sampleStringStorage = TDFStorageType()
-    sampleStringStorage.set_tdf_storage_string_type(plain_text);
+    sampleStringStorage.set_tdf_storage_string_type(plain_text)
     tdf_data = client.encrypt_data(sampleStringStorage)
 
     sampleEncryptedStringStorage = TDFStorageType()
-    sampleEncryptedStringStorage.set_tdf_storage_string_type(tdf_data);
+    sampleEncryptedStringStorage.set_tdf_storage_string_type(tdf_data)
     decrypted_plain_text = client.decrypt_data(sampleEncryptedStringStorage)
 
     if plain_text == decrypted_plain_text:
@@ -62,30 +62,30 @@ try:
     nano_tdf_client.enable_console_logging(LogLevel.Warn)
 
     sampleTxtStorageNano = TDFStorageType()
-    sampleTxtStorageNano.set_tdf_storage_file_type("sample.txt");
+    sampleTxtStorageNano.set_tdf_storage_file_type("sample.txt")
     nano_tdf_client.encrypt_file(sampleTxtStorageNano, "sample.txt.ntdf")
 
     sampleTdfStorageNano = TDFStorageType()
-    sampleTdfStorageNano.set_tdf_storage_file_type("sample.txt.ntdf");
+    sampleTdfStorageNano.set_tdf_storage_file_type("sample.txt.ntdf")
     nano_tdf_client.decrypt_file(sampleTdfStorageNano, "sample_out.nano.txt")
 
     #################################################
     # Nano TDF - Data API
     #################################################
 
-    plain_text = 'Hello world!!'
-    sampleStringStorageNano = TDFStorageType()
-    sampleStringStorageNano.set_tdf_storage_string_type(plain_text);
-    nan_tdf_data = nano_tdf_client.encrypt_data(plain_text)
-
-    sampleEncryptedStringStorageNano = TDFStorageType()
-    sampleEncryptedStringStorageNano.set_tdf_storage_string_type(nan_tdf_data);
-    decrypted_plain_text = nano_tdf_client.decrypt_data(sampleEncrypteStringStorageNano)
-
-    if plain_text == decrypted_plain_text:
-        print("Nano TDF Encrypt/Decrypt is successful!!")
-    else:
-        print("Error: Nano TDF Encrypt/Decrypt failed!!")
+#    plain_text = 'Hello world!!'
+#    sampleStringStorageNano = TDFStorageType()
+#    sampleStringStorageNano.set_tdf_storage_string_type(plain_text)
+#    nan_tdf_data = nano_tdf_client.encrypt_data(plain_text)
+#
+#    sampleEncryptedStringStorageNano = TDFStorageType()
+#    sampleEncryptedStringStorageNano.set_tdf_storage_string_type(nan_tdf_data)
+#    decrypted_plain_text = nano_tdf_client.decrypt_data(sampleEncrypteStringStorageNano)
+#
+#    if plain_text == decrypted_plain_text:
+#        print("Nano TDF Encrypt/Decrypt is successful!!")
+#    else:
+#        print("Error: Nano TDF Encrypt/Decrypt failed!!")
 
 except:
     print("Unexpected error: %s" % sys.exc_info()[0])
