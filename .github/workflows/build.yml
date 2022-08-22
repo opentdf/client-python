@@ -81,7 +81,7 @@ jobs:
       - run: echo "💡 The %github.repository% repository has been cloned to the runner."
 
       - name: Install Conan
-        run: pip3 install conan==1.48.2
+        run: pip3 install conan==1.51.0
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
@@ -89,7 +89,6 @@ jobs:
       - name: Run build
         run: |
           cd ${{ github.workspace }}
-          cd src
           .\build-all.bat
 
       - run: echo "🍏 This job's status is %job.status%."
@@ -107,9 +106,46 @@ jobs:
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
 
       - name: Install Conan
-        run: pip3 install conan==1.48.2
+        run: pip3 install conan==1.51.0
+
+      - name: Git clone opentdf
+        run: |
+          git clone --depth 1 --branch feature/1.0.0-better https://github.com/opentdf/opentdf.git
+
+      - uses: yokawasa/action-setup-kube-tools@v0.8.0
+        with:
+          setup-tools: |
+            kubectl
+            helm
+            tilt
+          # This should be in sync with the minikube-deployed kube version below
+          kubectl: "1.24.1"
+          helm: "3.9.1"
+          tilt: "0.30.4"
+      - run: |
+          kubectl version --client
+          kustomize version
+          tilt version
+      - name: start minikube
+        id: minikube
+        uses: medyagh/setup-minikube@master
+        with:
+          minikube-version: 1.26.0
+          # This should be in sync with the setup-tools version above
+          kubernetes-version: 1.24.1
+      - name: Run tilt & wrapper build and run sanity test
+        env:
+          # This test script is passed to opentdf/quickstart tilt file
+          TEST_SCRIPT: ../../build-and-run-sanity-test.sh
+        run: |-
+          kubectl version
+          pwd
+          cd opentdf/quickstart
+          pwd
+          tilt ci
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
 
   ci:
     needs:
