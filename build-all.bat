@@ -1,6 +1,18 @@
-rm -rf build
+rmdir /s /y build
 mkdir build
-cd build
+pushd build
+
+REM Install the prerequisites
 conan install .. --build=missing
+set builderrorlevel=%errorlevel%
+if %builderrorlevel% neq 0 goto fin
+
+REM Build the wrapper
 conan build .. --build-folder .
-cd ..
+set builderrorlevel=%errorlevel%
+if %builderrorlevel% neq 0 goto fin
+
+:fin
+REM return to where we came from
+popd
+exit /b %builderrorlevel%
