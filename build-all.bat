@@ -1,4 +1,4 @@
-rmdir /s /y build
+rmdir /s /q build
 mkdir build
 pushd build
 

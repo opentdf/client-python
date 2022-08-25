@@ -76,6 +76,12 @@ add_custom_command(TARGET ${OPENTDFMODULENAME} POST_BUILD COMMAND python3 -m pip
                                                  COMMAND mkdir build/lib
                                                  COMMAND cp  -p ../lib/*${CMAKE_SHARED_LIBRARY_SUFFIX} build/lib
                                                  COMMAND python3  ../../src/module/setup.py bdist_wheel --plat-name ${OSXPLATNAME})
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+add_custom_command(TARGET ${OPENTDFMODULENAME} POST_BUILD COMMAND python -m pip install pybind11 twine
+                                                 COMMAND mkdir build
+                                                 COMMAND mkdir build\\lib
+                                                 COMMAND copy ..\\bin\\*${CMAKE_SHARED_LIBRARY_SUFFIX} build\\lib
+                                                 COMMAND python  ../../src/module/setup.py bdist_wheel)
 else()
 add_custom_command(TARGET ${OPENTDFMODULENAME} POST_BUILD COMMAND python3 -m pip install pybind11 twine
                                                  COMMAND mkdir build/
