@@ -2,6 +2,9 @@ rmdir /s /q build
 mkdir build
 pushd build
 
+REM need to add this in
+pip install wheel
+
 REM Install the prerequisites
 conan install .. --build=missing
 set builderrorlevel=%errorlevel%
