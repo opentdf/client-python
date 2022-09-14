@@ -31,19 +31,26 @@ message("Libs of python: " ${PYTHON_LIBRARIES} )
 message("Include dirs of python: " ${PYTHON_INCLUDE_DIRS} )
 message("python major+minor: " ${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR} )
 
+STRING(TOLOWER ${CMAKE_SYSTEM_NAME} CMAKE_SYSTEM_NAME_LOWERCASE)
+
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   SET(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
   SET(CMAKE_SHARED_LIBRARY_PREFIX "")
 endif()
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  SET(CMAKE_SHARED_LIBRARY_PREFIX "")
+  SET(CMAKE_SYSTEM_NAME_LOWERCASE "linux-gnu")
+endif()
 
-STRING(TOLOWER ${CMAKE_SYSTEM_NAME} CMAKE_SYSTEM_NAME_LOWERCASE)
-SET(OPENTDFMODULENAME "opentdf.cpython-${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}-${CMAKE_SYSTEM_NAME_LOWERCASE}")
-
-message("openTDF python module name: " ${CMAKE_SHARED_LIBRARY_PREFIX}${OPENTDFMODULENAME}${CMAKE_SHARED_LIBRARY_SUFFIX} )
+SET(OPENTDFMODULENAME "opentdf.cpython-${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}-${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME_LOWERCASE}")
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  set(OPENTDFMODULENAME "opentdf.cpython-${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}-${CMAKE_SYSTEM_NAME_LOWERCASE}")
   set(OSXPLATNAME "macosx_10_14_x86_64")
+  message("Darwin plat name: " ${OSXPLATNAME})
 endif()
+
+message("openTDF python module name: " ${CMAKE_SHARED_LIBRARY_PREFIX}${OPENTDFMODULENAME}${CMAKE_SHARED_LIBRARY_SUFFIX} )
 
 # Include paths
 include_directories(
@@ -69,6 +76,12 @@ add_custom_command(TARGET ${OPENTDFMODULENAME} POST_BUILD COMMAND python3 -m pip
                                                  COMMAND mkdir build/lib
                                                  COMMAND cp  -p ../lib/*${CMAKE_SHARED_LIBRARY_SUFFIX} build/lib
                                                  COMMAND python3  ../../src/module/setup.py bdist_wheel --plat-name ${OSXPLATNAME})
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+add_custom_command(TARGET ${OPENTDFMODULENAME} POST_BUILD COMMAND python -m pip install pybind11 twine
+                                                 COMMAND mkdir build
+                                                 COMMAND mkdir build\\lib
+                                                 COMMAND copy ..\\bin\\*${CMAKE_SHARED_LIBRARY_SUFFIX} build\\lib
+                                                 COMMAND python  ../../src/module/setup.py bdist_wheel)
 else()
 add_custom_command(TARGET ${OPENTDFMODULENAME} POST_BUILD COMMAND python3 -m pip install pybind11 twine
                                                  COMMAND mkdir build/

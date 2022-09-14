@@ -1,7 +1,9 @@
 #!/bin/bash
+set -ex
 rm -rf build
 mkdir build
 cd build
-conan install ..
-conan build .. --build-folder .
+export VBUILD_UNIT_TESTS="false"
+conan install .. --build=missing
+conan build .. -bf .
 cd ..

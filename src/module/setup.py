@@ -6,7 +6,7 @@ from setuptools import setup
 
 package_name = 'opentdf'
 
-version = '0.2.3'
+version = '1.1.2'
 
 setup(
     name=package_name,

@@ -1,6 +1,6 @@
 # Copyright 2019 Virtru Corporation
 #
-# SPDX - License - Identifier: BSD-3-Clause-Clear
+# SPDX - License Identifier: BSD-3-Clause-Clear
 #
 
 # sample encrypt/decrypt
@@ -11,23 +11,23 @@ from opentdf import TDFClient, NanoTDFClient, OIDCCredentials, LogLevel
 try:
     # Create OIDC credentials object
     oidc_creds = OIDCCredentials()
-    oidc_creds.set_client_credentials(client_id = "tdf-client",
-                                 client_secret = "123-456",
-                                 organization_name = "tdf",
-                                 oidc_endpoint = "http://localhost:65432/keycloak")
+    oidc_creds.set_client_credentials_client_secret(client_id = "tdf-client",
+                                                    client_secret = "123-456",
+                                                    organization_name = "tdf",
+                                                    oidc_endpoint = "http://localhost:65432/")
 
     client = TDFClient(oidc_credentials = oidc_creds,
-                        kas_url = 'http://localhost:65432/kas')
+                      kas_url = 'http://localhost:65432/api/kas')
     client.enable_console_logging(LogLevel.Info)
     #################################################
-    # TDF3 - File API
+    # TDF - File API
     ################################################
 
     client.encrypt_file("sample.txt", "sample.txt.tdf")
     client.decrypt_file("sample.txt.tdf", "sample_out.txt")
 
     #################################################
-    # TDF3 - Data API
+    # TDF - Data API
     #################################################
 
     plain_text = 'Hello world!!'
@@ -35,9 +35,9 @@ try:
     decrypted_plain_text = client.decrypt_string(tdf_data)
 
     if plain_text == decrypted_plain_text:
-        print("TDF3 Encrypt/Decrypt is successful!!")
+        print("TDF Encrypt/Decrypt is successful!!")
     else:
-        print("Error: TDF3 Encrypt/Decrypt failed!!")
+        print("Error: TDF Encrypt/Decrypt failed!!")
 
 
     #################################################
@@ -46,7 +46,7 @@ try:
 
     # create a nano tdf client.
     nano_tdf_client = NanoTDFClient(oidc_credentials = oidc_creds,
-                                 kas_url = 'http://localhost:65432/kas')
+                                 kas_url = 'http://localhost:65432/api/kas')
     nano_tdf_client.enable_console_logging(LogLevel.Info)
 
     nano_tdf_client.encrypt_file("sample.txt", "sample.txt.ntdf")
