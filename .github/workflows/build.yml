@@ -55,7 +55,7 @@ jobs:
       - name: Run tilt & wrapper build and run sanity test
         env:
           # This test script is passed to opentdf/quickstart tilt file
-          TEST_SCRIPT: ../../build-and-run-sanity-test.sh
+          TEST_SCRIPT: ../build-and-run-sanity-test.sh
         run: |-
           kubectl version
           pwd
