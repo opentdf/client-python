@@ -1,1 +1,4 @@
 build/
+opentdf-cpp/
+src/module/dist/
+src/module/opentdf.egg-info/
