@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 echo "Building python wrapper"
-./build-all.sh
+cd ../.. && ./build-all.sh
 
 echo "Run the sanity test"
 unzip -l `find . -name \*.whl`
-pip3 install `find . -name \*.whl`
+pip3 install `find . -name \*.whl` --force-reinstall
 cd src/sample
 python3 ./oidc-auth.py
