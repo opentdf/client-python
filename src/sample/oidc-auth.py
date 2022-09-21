@@ -27,7 +27,7 @@ try:
 
     sampleTxtStorage = TDFStorageType()
     sampleTxtStorage.set_tdf_storage_file_type("sample.txt")
-    #client.enable_benchmark()
+    client.enable_benchmark()
     client.encrypt_file(sampleTxtStorage, "sample.txt.tdf")
 
     sampleTdfStorage = TDFStorageType()
@@ -61,7 +61,7 @@ try:
     nano_tdf_client = NanoTDFClient(oidc_credentials = oidc_creds,
                                  kas_url = KAS_URL)
     nano_tdf_client.enable_console_logging(LogLevel.Warn)
-    #nano_tdf_client.enable_benchmark()
+    nano_tdf_client.enable_benchmark()
 
     sampleTxtStorageNano = TDFStorageType()
     sampleTxtStorageNano.set_tdf_storage_file_type("sample.txt")

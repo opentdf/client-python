@@ -1,5 +1,5 @@
 [requires]
-opentdf-client/1.1.5@
+opentdf-client/1.1.6@
 
 [imports]
 include, *.h -> ../opentdf-cpp/include/ @ root_package=opentdf-client
