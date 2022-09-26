@@ -2,13 +2,14 @@
 set -ex
 
 # Install opentdf cpp library
+rm -rf opentdf-cpp
 rm -rf build
 mkdir build
 cd build
 conan install .. --build=missing
 
 # Build whl
-cd ../src/module
+cd ../src/python-bindings
 
 # FIXME: Find python versions and build the whl's
 # python3.8 -m pip install --upgrade pip
@@ -23,7 +24,7 @@ cd ../src/module
 # python3.10 -m pip install pybind11 twine
 # python3.10 setup.py bdist_wheel
 
-
-python3 -m pip install --upgrade pip
-python3 -m pip install pybind11 twine
-python3 setup.py bdist_wheel 
+# python3 -m pip3 install wheel
+# python3 -m pip3 install --upgrade pip
+# python3 -m pip3 install pybind11 twine
+# python3 setup.py bdist_wheel 

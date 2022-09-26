@@ -1,6 +1,7 @@
 build/
 opentdf-cpp/
-src/module/dist/
-src/module/opentdf.egg-info/
+src/python-bindings/dist/
+src/python-bindings/opentdf.egg-info/
 src/sample/sample.txt.*
 src/sample/sample_out.*
+src/sample/.venv/
