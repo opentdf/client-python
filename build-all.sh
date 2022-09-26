@@ -2,12 +2,14 @@
 set -ex
 
 # Install opentdf cpp library
+mkdir opentdf-cpp
 ls -al
 rm -rf build
 mkdir build
+ls -al
 cd build
 conan install .. --build=missing
-ls -al
+ls -al ../opentdf-cpp
 # Build whl
 cd ../src/module
 ls -al
