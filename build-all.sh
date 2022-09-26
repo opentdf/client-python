@@ -2,6 +2,7 @@
 set -ex
 
 # Install opentdf cpp library
+ls -al
 rm -rf build
 mkdir build
 cd build
