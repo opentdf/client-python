@@ -9,7 +9,7 @@ mkdir build
 ls -al
 cd build
 conan install .. --build=missing
-ls -al ../opentdf-cpp
+ls -al ../opentdf-cpp/lib
 # Build whl
 cd ../src/module
 ls -al

@@ -51,7 +51,7 @@ if sys.platform == 'win32':
 
 libdir = os.path.join('..', '..', "opentdf-cpp")
 library_file = os.path.join('..', '..', "opentdf-cpp", "lib", tdf_library)
-print('%s' % (library_file))
+print('%s %s' % (library_dirs, library_file))
 
 extra_objects = []
 extra_objects.append(library_file)
