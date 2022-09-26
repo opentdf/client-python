@@ -6,10 +6,10 @@ rm -rf build
 mkdir build
 cd build
 conan install .. --build=missing
-
+ls -al
 # Build whl
 cd ../src/module
-
+ls -al
 # FIXME: Find python versions and build the whl's
 # python3.8 -m pip install --upgrade pip
 # python3.8 -m pip install pybind11 twine
