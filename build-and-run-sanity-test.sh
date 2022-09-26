@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
+ls -al
 echo "Building python wrapper"
-cd ../.. && ./build-all.sh
+./build-all.sh
 
 echo "Run the sanity test"
 unzip -l `find . -name \*.whl`
