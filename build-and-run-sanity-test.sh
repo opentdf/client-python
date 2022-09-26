@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+ls -al
 echo "Building python wrapper"
 cd ../.. && ./build-all.sh
 
