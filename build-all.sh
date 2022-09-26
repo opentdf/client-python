@@ -9,7 +9,7 @@ cd build
 conan install .. --build=missing
 
 # Build whl
-cd ../src/python-bindings
+cd ../src/python-bindings/pips
 
 # FIXME: Find python versions and build the whl's
 python3.8 -m pip install --upgrade pip
