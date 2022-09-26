@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ls -al
 echo "Building python wrapper"
-./build-all.sh
+cd ../.. && ./build-all.sh
 
 echo "Run the sanity test"
 python -V

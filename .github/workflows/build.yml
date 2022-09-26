@@ -57,7 +57,11 @@ jobs:
           # This test script is passed to opentdf/quickstart tilt file
           TEST_SCRIPT: ../../build-and-run-sanity-test.sh
         run: |-
-          ./build-and-run-sanity-test.sh
+          kubectl version
+          pwd
+          cd opentdf/quickstart
+          pwd
+          tilt ci
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
