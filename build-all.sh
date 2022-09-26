@@ -11,11 +11,12 @@ conan install .. --build=missing
 # Build whl
 cd ../src/python-bindings/pips
 
+
 # FIXME: Find python versions and build the whl's
 python3.8 -m pip install --upgrade pip
 python3.8 -m pip install pybind11 twine
 python3.8 setup.py bdist_wheel
-
+ls -al dist/
 # python3.9 -m pip install --upgrade pip
 # python3.9 -m pip install pybind11 twine
 # python3.9 setup.py bdist_wheel 
