@@ -17,7 +17,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: python
+        working-directory: src/python-bindings/pips
 
     strategy:
       # Ensure that a wheel builder finishes even if another fails
@@ -104,10 +104,8 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux_image }}
           CIBW_MANYLINUX_I686_IMAGE: ${{ matrix.manylinux_image }}
           CIBW_TEST_SKIP: "*-macosx_arm64"
-
-          CIBW_TEST_COMMAND: bash {project}/build_tools/github/test_wheels.sh
           CIBW_BUILD_VERBOSITY: 1
-        run: bash build_tools/github/build_wheels.sh
+        run: bash build_tools/build_wheels.sh
         # to supply options, put them in 'env', like:
         # env:
         #   CIBW_SOME_OPTION: value
