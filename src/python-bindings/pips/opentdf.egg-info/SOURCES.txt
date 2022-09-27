@@ -1,8 +1,0 @@
-python_module.cpp
-setup.cfg
-setup.py
-../../LICENSE
-opentdf.egg-info/PKG-INFO
-opentdf.egg-info/SOURCES.txt
-opentdf.egg-info/dependency_links.txt
-opentdf.egg-info/top_level.txt
