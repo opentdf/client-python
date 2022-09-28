@@ -34,7 +34,7 @@ jobs:
       - name: Build wheels for Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
-          pip install -U wheel setuptools auditwheel patchelf
+          pip install -U wheel setuptools auditwheel patchelf pybind11
           pip wheel . --verbose -w dist
           auditwheel repair dist/opentdf*.whl --plat manylinux2014_x86_64
 
