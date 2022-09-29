@@ -26,8 +26,6 @@ jobs:
       PY_VER: ${{ matrix.PY_VER }}
     steps:
       - uses: actions/checkout@v2
-      - name: Download dependencies
-        run: ./download.sh
       - name: Build
         run: docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/install_req.sh -e PLAT=$PLAT
       - name: Result
