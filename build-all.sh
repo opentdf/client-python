@@ -1,31 +1,28 @@
 #!/bin/bash
-set -ex
+# minimal build script to be executed from the src directory
+export VBUILD_UNIT_TESTS="true"
+# Run the backend test
+#export VRUN_BACKEND_TESTS="true"
+TDF_LIB_OUTPUT="tdf-lib-cpp"
 
-# Install opentdf cpp library
-rm -rf opentdf-cpp
 rm -rf build
 mkdir build
 cd build
 conan install .. --build=missing
+conan build .. --build-folder .
 
-# Build whl
-cd ../src/python-bindings/pips
+# run unit tests
+if make test; then
+    echo "All unit-test passed"
+else
+    echo "Error: Unit test failed. Fix it!!"
+    exit -1;
+fi
 
-
-# FIXME: Find python versions and build the whl's
-python3.8 -m pip install --upgrade pip
-python3.8 -m pip install pybind11 twine
-python3.8 setup.py bdist_wheel
-ls -al dist/
-# python3.9 -m pip install --upgrade pip
-# python3.9 -m pip install pybind11 twine
-# python3.9 setup.py bdist_wheel 
-
-# python3.10 -m pip install --upgrade pip
-# python3.10 -m pip install pybind11 twine
-# python3.10 setup.py bdist_wheel
-
-# python3 -m pip3 install wheel
-# python3 -m pip3 install --upgrade pip
-# python3 -m pip3 install pybind11 twine
-# python3 setup.py bdist_wheel 
+# package the library.
+if make install; then
+    echo "Packaging ${TDF_LIB_OUTPUT} passed"
+else
+    echo "Error: Packaging ${TDF_LIB_OUTPUT} failed. Fix it!!"
+    exit -1;
+fi

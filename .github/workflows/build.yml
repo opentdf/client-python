@@ -12,37 +12,29 @@ env:
   VBUILD_UNIT_TESTS: true
   CONAN_VER: 1.51.3
 jobs:
-  build_wheels:
-    name: Build wheels on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        shell: bash
-        working-directory: src/python-bindings/pips
+  build:
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
-
+        include:
+          - PLAT: manylinux2014_x86_64
+            DOCKER_IMAGE: quay.io/pypa/manylinux2014_x86_64
+    env:
+      PLAT: ${{ matrix.MANYLINUX_VER }}
+      DOCKER_IMAGE: ${{ matrix.DOCKER_IMAGE }}
+      PY_VER: ${{ matrix.PY_VER }}
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Build wheels for Linux
-        if: matrix.os == 'ubuntu-latest'
+      - name: Download dependencies
+        run: ./download.sh
+      - name: Build
+        run: docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/install_req.sh -e PLAT=$PLAT
+      - name: Result
+        run: ls -al wheelhouse/
+      - name: Publish
         run: |
-          pip install -U wheel setuptools auditwheel patchelf pybind11
-          pip wheel . --verbose -w dist
-          auditwheel repair dist/opentdf*.whl --plat manylinux2014_x86_64
-
-      - name: Build wheels for Windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          pip install -U wheel setuptools
-          python setup.py bdist_wheel -d wheelhouse
-      - uses: actions/upload-artifact@v2
-        with:
-          path: wheelhouse/*.whl
+          eval $(ssh-agent -s)
+          ssh-add <(echo "${{ secrets.SSH_DEPLOY_KEY }}")
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./wheelhouse/ "manylinux@wheelhouse.acsone.eu:"
+        if: ${{ github.event_name == 'push' }}

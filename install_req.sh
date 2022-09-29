@@ -14,4 +14,4 @@ pip install conan
 
 /bin/bash
 ./build-all.sh
-./docker/manylinux/build_wheels.sh
+./build_wheels.sh
