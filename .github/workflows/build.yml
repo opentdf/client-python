@@ -30,9 +30,3 @@ jobs:
         run: docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/install_req.sh -e PLAT=$PLAT
       - name: Result
         run: ls -al wheelhouse/
-      - name: Publish
-        run: |
-          eval $(ssh-agent -s)
-          ssh-add <(echo "${{ secrets.SSH_DEPLOY_KEY }}")
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./wheelhouse/ "manylinux@wheelhouse.acsone.eu:"
-        if: ${{ github.event_name == 'push' }}

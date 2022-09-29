@@ -13,5 +13,5 @@ pip install --upgrade cmake setuptools ninja scikit-build pybind11
 pip install conan
 
 /bin/bash
-./build-all.sh
-./build_wheels.sh
+./io/build-all.sh
+./io/build_wheels.sh
