@@ -6,6 +6,7 @@ class clientCsharpConan(ConanFile):
 
     def requirements(self):
         self.requires("opentdf-client/1.1.5@")
+        self.requires("pybind11/2.6.2@")
 
     def build(self):
         cmake = CMake(self)
