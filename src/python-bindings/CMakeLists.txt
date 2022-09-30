@@ -85,6 +85,3 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${TDF_PYTHON_BINDINGS_FILENAME})
-
-# Note we really use the static_combined lib, but it's generated as a custom post-build command of static, so it's not a visible target
-add_dependencies(${PROJECT_NAME} opentdfstatic)
