@@ -1,28 +1,17 @@
 #!/bin/bash
-# minimal build script to be executed from the src directory
-export VBUILD_UNIT_TESTS="true"
-# Run the backend test
-#export VRUN_BACKEND_TESTS="true"
-TDF_LIB_OUTPUT="tdf-lib-cpp"
+set -ex
+export OPENTDF_BUILD="build"
+export WHEEL_OSX_PLAT_NAME="macosx_10_14_x86_64"
 
-rm -rf build
-mkdir build
-cd build
+
+rm -rf $OPENTDF_BUILD
+mkdir $OPENTDF_BUILD
+
+cd $OPENTDF_BUILD
 conan install .. --build=missing
-conan build .. --build-folder .
+conan build .. -bf .
 
-# run unit tests
-if make test; then
-    echo "All unit-test passed"
-else
-    echo "Error: Unit test failed. Fix it!!"
-    exit -1;
-fi
-
-# package the library.
-if make install; then
-    echo "Packaging ${TDF_LIB_OUTPUT} passed"
-else
-    echo "Error: Packaging ${TDF_LIB_OUTPUT} failed. Fix it!!"
-    exit -1;
-fi
+cd ../src/python-bindings/pips
+python3.9 -m pip install --upgrade pip
+python3.9 -m pip install pybind11 twine
+python3.9 setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
