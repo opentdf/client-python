@@ -31,7 +31,7 @@ else()
 endif()
 
 set(TDF_PYTHON_BINDINGS_FILENAME ${PROJECT_NAME}${PYTHON_MODULE_SUFFIX})
-set(TDF_LIB_DIR ${PROJECT_SOURCE_DIR}/../build/lib)
+#set(TDF_LIB_DIR ${PROJECT_SOURCE_DIR}/../build/lib)
 
 find_package(PythonInterp 3)
 find_package(PythonLibs   3)
@@ -52,11 +52,11 @@ endif()
 # Include paths
 include_directories(
         ${PROJECT_SOURCE_DIR}
-        ${PROJECT_SOURCE_DIR}/../lib/include
-        ${PROJECT_SOURCE_DIR}/../lib/src
-        ${PROJECT_SOURCE_DIR}/../../tdf-cpp/src/lib/include
-        ${PROJECT_SOURCE_DIR}/../../tdf-cpp/src/lib/src
-        ${PROJECT_SOURCE_DIR}/../../tdf-cpp/src/thirdparty-libs/common
+#        ${PROJECT_SOURCE_DIR}/../lib/include
+#        ${PROJECT_SOURCE_DIR}/../lib/src
+#        ${PROJECT_SOURCE_DIR}/../../tdf-cpp/src/lib/include
+#        ${PROJECT_SOURCE_DIR}/../../tdf-cpp/src/lib/src
+#        ${PROJECT_SOURCE_DIR}/../../tdf-cpp/src/thirdparty-libs/common
         ${CONAN_INCLUDE_DIRS}
         ${PYTHON_INCLUDE_DIRS}
         ${PYBIND11_INCLUDE_DIRS}
@@ -64,15 +64,15 @@ include_directories(
 
 link_directories(
         ${CONAN_LIB_DIRS}
-        ${TDF_LIB_DIR}
+       # ${TDF_LIB_DIR}
 )
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    link_libraries(${CONAN_LIBS}
-            ${TDFLIB})
+    link_libraries(${CONAN_LIBS})
+           # ${TDFLIB})
 else()
     link_libraries(${CONAN_LIBS}
-            ${TDFLIB}
+            #${TDFLIB}
             ${PYTHON_LIBRARY})
 endif()
 
