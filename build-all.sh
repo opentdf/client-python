@@ -10,7 +10,7 @@ ls
 cd $OPENTDF_BUILD
 conan install .. --build=missing
 conan build .. -bf .
-ls ../build/src
+ls ../build/src/python-bindings
 ls ../build/lib
 pwd
 cd ../src/python-bindings/pips
