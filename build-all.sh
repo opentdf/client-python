@@ -10,8 +10,8 @@ ls
 cd $OPENTDF_BUILD
 conan install .. --build=missing
 conan build .. -bf .
-ls
-ls ../build
+ls ../build/src
+ls ../build/lib
 pwd
 cd ../src/python-bindings/pips
 python3.10 -m pip install --upgrade pip

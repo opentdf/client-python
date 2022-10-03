@@ -43,14 +43,14 @@ def load_readme():
 
 include_dirs = []
 library_dirs = []
-library_dirs = library_dirs.append(os.path.join('..', '..', "..","opentdf-cpp", "lib"))
+library_dirs = library_dirs.append(os.path.join('..', '..', "..","build", "lib"))
 
 tdf_library = 'libopentdf_static_combined.a'
 if sys.platform == 'win32':
     tdf_library = 'opentdf_static_combined.lib'
 
-libdir = os.path.join('..', '..', "..", "opentdf-cpp")
-library_file = os.path.join('..', '..', "..", "opentdf-cpp", "lib", tdf_library)
+libdir = os.path.join('..', '..', "..", "build")
+library_file = os.path.join('..', '..', "..", "build", "lib", tdf_library)
 
 extra_objects = []
 extra_objects.append(library_file)
@@ -90,8 +90,8 @@ tf3_module = Extension(
     package_name,
     sources=["python_module.cpp"],
     extra_compile_args=cflags,
-    include_dirs=[#os.path.join(libdir, "include"),
-                  #os.path.join(libdir, "src"),
+    include_dirs=[os.path.join(libdir, "include"),
+                  os.path.join(libdir, "src"),
                   get_pybind_include(),
                   get_pybind_include(user=True)],
     library_dirs=library_dirs,
