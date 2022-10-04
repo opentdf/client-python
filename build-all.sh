@@ -14,8 +14,6 @@ ls
 cd $OPENTDF_BUILD
 conan install .. --build=missing
 
-ls ../build/src/python-bindings
-ls ../build/lib
 ls ../opentdf-cpp/lib
 ls ../opentdf-cpp/include
 pwd
