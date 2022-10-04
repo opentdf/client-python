@@ -1,9 +1,10 @@
 from conans import ConanFile, CMake
 import os
 
-class clientCsharpConan(ConanFile):
+class clientPythonConan(ConanFile):
     generators = "cmake"
     settings = "os", "compiler", "build_type", "arch"
+    keep_imports = True
 
     def requirements(self):
         self.requires("opentdf-client/1.2.0@")
