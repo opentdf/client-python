@@ -7,13 +7,13 @@ export WHEEL_OSX_PLAT_NAME="macosx_10_14_x86_64"
 
 rm -rf $OPENTDF_BUILD
 mkdir $OPENTDF_BUILD
-mkdir $OPENTDF_DST
+mkdir -p $OPENTDF_DST
 mkdir $OPENTDF_DST/lib
 mkdir $OPENTDF_DST/include
 ls
 cd $OPENTDF_BUILD
 conan install .. --build=missing
-conan build .. -bf .
+
 ls ../build/src/python-bindings
 ls ../build/lib
 ls ../opentdf-cpp/lib
