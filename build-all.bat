@@ -10,12 +10,11 @@ conan install .. --build=missing
 set builderrorlevel=%errorlevel%
 if %builderrorlevel% neq 0 goto fin
 
-REM Build the wrapper
-conan build .. --build-folder .
-set builderrorlevel=%errorlevel%
-if %builderrorlevel% neq 0 goto fin
+REM build python wheel
+cd %CURRENT_DIR%
+cd src\python-bindings\pips
 
-:fin
-REM return to where we came from
-popd
+py -3.10-64 -m pip install wheel pybind11 twine
+py -3.10-64 setup.py bdist_wheel
+
 exit /b %builderrorlevel%
