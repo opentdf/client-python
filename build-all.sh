@@ -8,10 +8,12 @@ rm -rf $OPENTDF_BUILD
 mkdir $OPENTDF_BUILD
 ls
 cd $OPENTDF_BUILD
-conan install .. --build=missing
+conan install .. --build
 conan build .. -bf .
 ls ../build/src/python-bindings
 ls ../build/lib
+ls ../opentdf-cpp/lib
+ls ../opentdf-cpp/include
 pwd
 cd ../src/python-bindings/pips
 python3.10 -m pip install --upgrade pip

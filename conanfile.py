@@ -1,4 +1,5 @@
 from conans import ConanFile, CMake
+import os
 
 class clientCsharpConan(ConanFile):
     generators = "cmake"
@@ -12,3 +13,8 @@ class clientCsharpConan(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+
+    def imports(self):
+        self.copy("*.h", root_package="opentdf-client", src="include" , dst="opentdf-cpp/include")
+        self.copy("*.lib", root_package="opentdf-client", src="lib" , dst="opentdf-cpp/lib")
+        self.copy("*.a", root_package="opentdf-client", src="lib" , dst="opentdf-cpp/lib")
