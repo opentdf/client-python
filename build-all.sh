@@ -7,6 +7,7 @@ export WHEEL_OSX_PLAT_NAME="macosx_10_14_x86_64"
 
 rm -rf $OPENTDF_BUILD
 mkdir $OPENTDF_BUILD
+mkdir $OPENTDF_DST
 mkdir $OPENTDF_DST/lib
 mkdir $OPENTDF_DST/include
 ls
