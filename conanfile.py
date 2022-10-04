@@ -16,6 +16,6 @@ class clientPythonConan(ConanFile):
         cmake.build()
 
     def imports(self):
-        self.copy("*.h", root_package="opentdf-client", src="include" , dst="opentdf-cpp/include")
-        self.copy("*.lib", root_package="opentdf-client", src="lib" , dst="opentdf-cpp/lib")
-        self.copy("*.a", root_package="opentdf-client", src="lib" , dst="opentdf-cpp/lib")
+        self.copy("*.h", root_package="opentdf-client", src="include" , dst="./opentdf-cpp/include")
+        self.copy("*.lib", root_package="opentdf-client", src="lib" , dst="./opentdf-cpp/lib")
+        self.copy("*.a", root_package="opentdf-client", src="lib" , dst="./opentdf-cpp/lib")
