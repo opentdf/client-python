@@ -78,21 +78,10 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           .\build-all.bat
-#  build:
-#    runs-on: ubuntu-latest
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        include:
-#          - PLAT: manylinux2014_x86_64
-#            DOCKER_IMAGE: quay.io/pypa/manylinux2014_x86_64
-#    env:
-#      PLAT: ${{ matrix.MANYLINUX_VER }}
-#      DOCKER_IMAGE: ${{ matrix.DOCKER_IMAGE }}
-#      PY_VER: ${{ matrix.PY_VER }}
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Build
-#        run: docker run --rm -v `pwd`:/io $DOCKER_IMAGE /io/install_req.sh -e PLAT=$PLAT
-#      - name: Result
-#        run: ls -al wheelhouse/
+
+  run-build-manylinux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: ./docker/manylinux/deploy.sh
