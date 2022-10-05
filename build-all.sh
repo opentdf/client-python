@@ -21,14 +21,14 @@ pwd
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
   python3.8 -m pip install --upgrade pip
-  python3.8 -m pip install pybind11 twine
+  python3.8 -m pip install wheel pybind11 twine
   python3.8 setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
 
   python3.9 -m pip install --upgrade pip
-  python3.9 -m pip install pybind11 twine
+  python3.9 -m pip install wheel pybind11 twine
   python3.9 setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
 
   python3.10 -m pip install --upgrade pip
-  python3.10 -m pip install pybind11 twine
+  python3.10 -m pip install wheel pybind11 twine
   python3.10 setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
 fi
