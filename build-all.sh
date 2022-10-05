@@ -12,6 +12,7 @@ mkdir $OPENTDF_DST/lib
 mkdir $OPENTDF_DST/include
 ls
 cd $OPENTDF_BUILD
+conan --version
 conan install .. --build=missing
 
 ls ../opentdf-cpp/lib

@@ -7,6 +7,7 @@ REM need to add this in
 pip install wheel
 
 REM Install the prerequisites
+conan --version
 conan install .. --build=missing
 set builderrorlevel=%errorlevel%
 if %builderrorlevel% neq 0 goto fin
