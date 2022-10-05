@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 env:
   VBUILD_UNIT_TESTS: false
-  CONAN_VER: 1.51.3
+  CONAN_VER: 1.52.0
 jobs:
   run-build-mac:
     runs-on: macos-11
