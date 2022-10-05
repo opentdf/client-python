@@ -23,4 +23,7 @@ py -3.9-64 setup.py bdist_wheel
 py -3.10-64 -m pip install wheel pybind11 twine
 py -3.10-64 setup.py bdist_wheel
 
+:fin
+REM return to where we came from
+popd
 exit /b %builderrorlevel%
