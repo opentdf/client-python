@@ -41,6 +41,11 @@ jobs:
           cd ${{ github.workspace }}
           ./build-all.sh
 
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          path: dist/*.whl
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   run-build-windows:
@@ -78,6 +83,11 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           .\build-all.bat
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          path: dist/*.whl
 
   run-build-manylinux:
     runs-on: ubuntu-latest
