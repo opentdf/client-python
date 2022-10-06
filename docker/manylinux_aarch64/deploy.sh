@@ -9,7 +9,7 @@ DOCKER_IMAGE=quay.io/pypa/$PLAT
 
 # Note that ALL non-fips tests fail to build on manylinux (and have for some time apparently), so we're turning them off
 docker pull $DOCKER_IMAGE
-docker run --rm -ti \
+docker run --rm \
    -v "${BUILDKITE_BUILD_CHECKOUT_PATH:-${PWD}}/dist":/io/src/python-bindings/pips/dist \
    -v `pwd`:/io \
    -w /io \
