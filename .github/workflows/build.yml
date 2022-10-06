@@ -105,6 +105,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: all
+          
       - name: Build
         run: ./docker/manylinux_aarch64/deploy.sh
 
