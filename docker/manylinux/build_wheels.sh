@@ -10,6 +10,8 @@ yum install -y boost-devel
 OUT_DIR=/io/src/python-bindings/pips/dist/
 
 pys=(
+    /opt/python/cp36-cp36m/bin/python
+    /opt/python/cp37-cp37m/bin/python
     /opt/python/cp38-cp38/bin/python
     /opt/python/cp39-cp39/bin/python
     /opt/python/cp310-cp310/bin/python

@@ -100,3 +100,15 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           path: src/python-bindings/pips/dist/*.whl
+
+  run-build-manylinux-aarch64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: ./docker/manylinux_aarch64/deploy.sh
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          path: src/python-bindings/pips/dist/*.whl
