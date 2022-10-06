@@ -95,3 +95,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build
         run: ./docker/manylinux/deploy.sh
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          path: /io/src/python-bindings/pips/dist/*.whl
