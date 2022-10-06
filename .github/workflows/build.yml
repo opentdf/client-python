@@ -44,7 +44,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v2
         with:
-          path: dist/*.whl
+          path: src/python-bindings/pips/dist/*.whl
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
@@ -87,7 +87,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v2
         with:
-          path: dist/*.whl
+          path: src/python-bindings/pips/dist/*.whl
 
   run-build-manylinux:
     runs-on: ubuntu-latest
