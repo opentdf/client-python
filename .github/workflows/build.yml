@@ -109,8 +109,8 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
-          platforms: all
-          
+          platforms: arm64
+
       - name: Build
         run: ./docker/manylinux_aarch64/deploy.sh
 
