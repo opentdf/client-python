@@ -104,21 +104,27 @@ jobs:
           name: wheel-manylinux-amd64
           path: src/python-bindings/pips/dist/*.whl
 
+#  run-build-manylinux-aarch64:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v2
+#        with:
+#          platforms: arm64
+#
+#      - name: Build
+#        run: ./docker/manylinux_aarch64/deploy.sh
+#
+#      - name: Upload Manylinux ARM64 wheels
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: wheel-manylinux-arm64
+#          path: src/python-bindings/pips/dist/*.whl
+
   run-build-manylinux-aarch64:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-        with:
-          platforms: arm64
-
-      - name: Build
-        run: ./docker/manylinux_aarch64/deploy.sh
-
-      - name: Upload Manylinux ARM64 wheels
-        uses: actions/upload-artifact@v2
-        with:
-          name: wheel-manylinux-arm64
-          path: src/python-bindings/pips/dist/*.whl
+    - name: Create wheel for manylinux 2014 for arm
+      uses: RalfG/python-wheels-manylinux-build@v0.5.0-manylinux2014_aarch64
+      with:
+        pre-build-command: source ../docker/manylinux_aarch64/deploy.sh
