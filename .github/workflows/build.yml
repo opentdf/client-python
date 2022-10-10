@@ -129,8 +129,8 @@ jobs:
       matrix:
         os:
           - "ubuntu-latest"
-        architecture:
-          - aarch64
+        platform:
+          - manylinux2014_aarch64
     steps:
       - uses: actions/checkout@v2
       - name: Create wheel for manylinux 2014 for arm
