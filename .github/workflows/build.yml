@@ -41,9 +41,10 @@ jobs:
           cd ${{ github.workspace }}
           ./build-all.sh
 
-      - name: Upload wheels
+      - name: Upload MacOS wheels
         uses: actions/upload-artifact@v2
         with:
+          name: wheel-macos
           path: src/python-bindings/pips/dist/*.whl
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
@@ -84,9 +85,10 @@ jobs:
           cd ${{ github.workspace }}
           .\build-all.bat
 
-      - name: Upload wheels
+      - name: Upload Windows wheels
         uses: actions/upload-artifact@v2
         with:
+          name: wheel-windows
           path: src/python-bindings/pips/dist/*.whl
 
   run-build-manylinux:
@@ -96,9 +98,10 @@ jobs:
       - name: Build
         run: ./docker/manylinux/deploy.sh
 
-      - name: Upload wheels
+      - name: Upload Manylinux AMD64 wheels
         uses: actions/upload-artifact@v2
         with:
+          name: wheel-manylinux-amd64
           path: src/python-bindings/pips/dist/*.whl
 
   run-build-manylinux-aarch64:
@@ -114,7 +117,8 @@ jobs:
       - name: Build
         run: ./docker/manylinux_aarch64/deploy.sh
 
-      - name: Upload wheels
+      - name: Upload Manylinux ARM64 wheels
         uses: actions/upload-artifact@v2
         with:
+          name: wheel-manylinux-arm64
           path: src/python-bindings/pips/dist/*.whl
