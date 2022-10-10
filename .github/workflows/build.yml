@@ -125,6 +125,12 @@ jobs:
 
   run-build-manylinux-aarch64:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - "ubuntu-latest"
+        architecture:
+          - aarch64
     steps:
       - uses: actions/checkout@v2
       - name: Create wheel for manylinux 2014 for arm
