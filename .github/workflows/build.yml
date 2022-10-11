@@ -148,6 +148,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install conan==${{ env.CONAN_VER }} --force
           pip install twine flake8 setuptools wheel pybind11
           ./build-all.sh
 
