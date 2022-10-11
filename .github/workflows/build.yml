@@ -156,7 +156,7 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_BUILD: 'cp37-*'
+          CIBW_BUILD: 'cp39-*'
           CIBW_SKIP: '*musllinux*'
           CIBW_ARCHS: aarch64
           CIBW_MANYLINUX_*_IMAGE: manylinux2014
