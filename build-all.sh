@@ -10,14 +10,11 @@ mkdir $OPENTDF_BUILD
 mkdir -p $OPENTDF_DST
 mkdir $OPENTDF_DST/lib
 mkdir $OPENTDF_DST/include
-ls
+
 cd $OPENTDF_BUILD
 conan --version
 conan install .. --build=missing
 
-ls ../opentdf-cpp/lib
-ls ../opentdf-cpp/include
-pwd
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
   python -m pip install --upgrade pip

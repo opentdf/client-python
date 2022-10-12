@@ -104,64 +104,21 @@ jobs:
           name: wheel-manylinux-amd64
           path: src/python-bindings/pips/dist/*.whl
 
-#  run-build-manylinux-aarch64:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Set up QEMU
-#        uses: docker/setup-qemu-action@v2
-#        with:
-#          platforms: arm64
-#
-#      - name: Build
-#        run: ./docker/manylinux_aarch64/deploy.sh
-#
-#      - name: Upload Manylinux ARM64 wheels
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: wheel-manylinux-arm64
-#          path: src/python-bindings/pips/dist/*.whl
-
   run-build-manylinux-aarch64:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - "ubuntu-latest"
-        python-version:
-          - cp37-cp37m
-          - cp38-cp38
-          - cp39-cp39
-          - cp310-cp310
-        architecture:
-            - aarch64
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
-          platforms: aarch64
+          platforms: arm64
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Build
+        run: ./docker/manylinux_aarch64/deploy.sh
+
+      - name: Upload Manylinux ARM64 wheels
+        uses: actions/upload-artifact@v2
         with:
-          python-version: 3.9
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install conan==${{ env.CONAN_VER }} --force
-          pip install twine flake8 setuptools wheel pybind11
-          ./build-all.sh
-
-      - name: Install cibuildwheel
-        run: python -m pip install cibuildwheel -U
-
-      - name: Build wheels
-        uses: pypa/cibuildwheel@v2.10.2
-        env:
-          CIBW_BUILD: 'cp39-*'
-          CIBW_SKIP: '*musllinux*'
-          CIBW_ARCHS: aarch64
-          CIBW_MANYLINUX_*_IMAGE: manylinux2014
+          name: wheel-manylinux-arm64
+          path: src/python-bindings/pips/dist/*.whl
