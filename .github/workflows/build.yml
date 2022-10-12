@@ -122,3 +122,14 @@ jobs:
         with:
           name: wheel-manylinux-arm64
           path: src/python-bindings/pips/dist/*.whl
+
+
+  upload_to_pypi:
+    needs: [ run-build-mac, run-build-windows, run-build-manylinux, run-build-manylinux-aarch64 ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          verbose: true
