@@ -128,11 +128,24 @@ jobs:
     needs: [ run-build-mac, run-build-windows, run-build-manylinux ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - name: Download wheel-macos artifact
+        uses: actions/download-artifact@v3
         with:
+          name: wheel-macos
           path: dist
-      - run: ls -lh dist/
+      - name: Download wheel-windows artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: wheel-windows
+          path: dist
+      - name: Download wheel-manylinux-amd64 artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: wheel-manylinux-amd64
+          path: dist
+
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_TOKEN }}
           verbose: true
+          skip_existing: true
