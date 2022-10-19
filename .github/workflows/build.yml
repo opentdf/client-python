@@ -104,24 +104,24 @@ jobs:
           name: wheel-manylinux-amd64
           path: src/python-bindings/pips/dist/*.whl
 
-  run-build-manylinux-aarch64:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-        with:
-          platforms: arm64
-
-      - name: Build
-        run: ./docker/manylinux_aarch64/deploy.sh
-
-      - name: Upload Manylinux ARM64 wheels
-        uses: actions/upload-artifact@v2
-        with:
-          name: wheel-manylinux-arm64
-          path: src/python-bindings/pips/dist/*.whl
+#  run-build-manylinux-aarch64:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Set up QEMU
+#        uses: docker/setup-qemu-action@v2
+#        with:
+#          platforms: arm64
+#
+#      - name: Build
+#        run: ./docker/manylinux_aarch64/deploy.sh
+#
+#      - name: Upload Manylinux ARM64 wheels
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: wheel-manylinux-arm64
+#          path: src/python-bindings/pips/dist/*.whl
 
 
   upload_to_pypi:
@@ -131,6 +131,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           path: dist
+      - run: ls -lh dist/
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_TOKEN }}
