@@ -104,28 +104,28 @@ jobs:
           name: wheel-manylinux-amd64
           path: src/python-bindings/pips/dist/*.whl
 
-#  run-build-manylinux-aarch64:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Set up QEMU
-#        uses: docker/setup-qemu-action@v2
-#        with:
-#          platforms: arm64
-#
-#      - name: Build
-#        run: ./docker/manylinux_aarch64/deploy.sh
-#
-#      - name: Upload Manylinux ARM64 wheels
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: wheel-manylinux-arm64
-#          path: src/python-bindings/pips/dist/*.whl
+  run-build-manylinux-aarch64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+
+      - name: Build
+        run: ./docker/manylinux_aarch64/deploy.sh
+
+      - name: Upload Manylinux ARM64 wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheel-manylinux-arm64
+          path: src/python-bindings/pips/dist/*.whl
 
 
   upload_to_pypi:
-    needs: [ run-build-mac, run-build-windows, run-build-manylinux ]
+    needs: [ run-build-mac, run-build-windows, run-build-manylinux, run-build-manylinux-aarch64 ]
     runs-on: ubuntu-latest
     steps:
       - name: Download wheel-macos artifact
@@ -142,6 +142,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: wheel-manylinux-amd64
+          path: dist
+      - name: Download wheel-manylinux-arm64 artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: wheel-manylinux-arm64
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@release/v1
