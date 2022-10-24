@@ -13,7 +13,7 @@ mkdir $OPENTDF_DST/include
 
 cd $OPENTDF_BUILD
 conan --version
-conan install .. --build
+conan install .. --build=missing
 
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
