@@ -10,7 +10,7 @@ export PATH=$PATH:/opt/_internal/tools/bin
 
 pip install --upgrade pip
 pip install --upgrade cmake setuptools ninja scikit-build pybind11
-pip install conan
+pip install conan==1.52.0
 
 /bin/bash
 ./build-all.sh
