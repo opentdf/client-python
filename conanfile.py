@@ -1,28 +1,22 @@
 from conans import ConanFile, CMake
+import os
 
-
-class ClientPythonConan(ConanFile):
+class OpenTDFLibConan(ConanFile):
+    generators = "cmake"
     settings = "os", "compiler", "build_type", "arch"
-    requires = "opentdf-client/1.2.0@"
-    options = {"fPIC": [True, False]}
-    default_options = {"fPIC": True}
 
-    def configure(self):
-        self.options["libxml2"].iconv = False
-        self.options["libxml2"].icu = False
-        self.options["boost"].i18n_backend_iconv = "off"
-        self.options["boost"].i18n_backend_icu = False
-        self.options["boost"].without_locale = True
-        self.options["boost"].without_log = True
-        if str(self.settings.arch).startswith('arm'):
-            self.options["openssl"].no_asm = True
-            self.options["libxml2"].lzma = False
-            self.options["libxml2"].zlib = False
+    # manylinux build of boost without libiconv fails because glibc is too old.  Default settings uses prebuilt binaries and works.  
+    # Disable these options until that can be resolved
+    default_options = ("NOTopentdf-client:without_libiconv=True", "NOTopentdf-client:without_zlib=True")
 
-    def config_options(self):
+    def requirements(self):
+        self.requires("pybind11/2.6.2@")
+        self.requires("opentdf-client/1.3.2@")
 
-        if self.settings.os == "Windows":
-            del self.options.fPIC
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
             
     def imports(self):
         self.copy("*.h", dst="../opentdf-cpp/include/", src="include")
