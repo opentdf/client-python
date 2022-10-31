@@ -1,1 +1,10 @@
 build/
+opentdf-cpp/
+src/python-bindings/dist/
+src/python-bindings/opentdf.egg-info/
+src/sample/sample.txt.*
+src/sample/sample_out.*
+src/sample/.venv/
+src/python-bindings/pips/dist/
+src/python-bindings/pips/opentdf.egg-info/
+src/python-bindings/pips/wheelhouse_tmp/

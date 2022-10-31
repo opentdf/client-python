@@ -240,6 +240,9 @@ PYBIND11_MODULE(opentdf, tdf) {
                  log_level(LogLevel): The log level
 
             )pbdoc")
+        .def("enable_benchmark", &TDFClient::enableBenchmark, R"pbdoc(
+              Enable benchmark logging
+            )pbdoc")     
         .def("set_xml_format", &TDFClient::setXMLFormat, R"pbdoc(
               Create TDFs in XML format instead of zip format.
             )pbdoc")
@@ -466,6 +469,9 @@ PYBIND11_MODULE(opentdf, tdf) {
               Args:
                  log_level(LogLevel): The log level
             )pbdoc")
+        .def("enable_benchmark", &NanoTDFClient::enableBenchmark, R"pbdoc(
+              Enable benchmark logging
+            )pbdoc")    
         .def("subject_attributes", &NanoTDFClient::getSubjectAttributes, R"pbdoc(
               Get subject attributes
 

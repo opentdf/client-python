@@ -27,6 +27,7 @@ try:
 
     sampleTxtStorage = TDFStorageType()
     sampleTxtStorage.set_tdf_storage_file_type("sample.txt")
+    client.enable_benchmark()
     client.encrypt_file(sampleTxtStorage, "sample.txt.tdf")
 
     sampleTdfStorage = TDFStorageType()
@@ -60,6 +61,7 @@ try:
     nano_tdf_client = NanoTDFClient(oidc_credentials = oidc_creds,
                                  kas_url = KAS_URL)
     nano_tdf_client.enable_console_logging(LogLevel.Warn)
+    nano_tdf_client.enable_benchmark()
 
     sampleTxtStorageNano = TDFStorageType()
     sampleTxtStorageNano.set_tdf_storage_file_type("sample.txt")
@@ -82,7 +84,7 @@ try:
     sampleEncryptedStringStorageNano.set_tdf_storage_string_type(nan_tdf_data)
     decrypted_plain_text = nano_tdf_client.decrypt_data(sampleEncryptedStringStorageNano)
 
-    if plain_text == decrypted_plain_text:
+    if plain_text == decrypted_plain_text.decode("utf-8"):
         print("Nano TDF Encrypt/Decrypt is successful!!")
     else:
         print("Error: Nano TDF Encrypt/Decrypt failed!!")
