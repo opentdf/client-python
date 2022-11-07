@@ -15,6 +15,7 @@ pys=(
     /opt/python/cp38-cp38/bin/python
     /opt/python/cp39-cp39/bin/python
     /opt/python/cp310-cp310/bin/python
+    /opt/python/cp311-cp311/bin/python
 )
 
 mkdir -p "${OUT_DIR}"
