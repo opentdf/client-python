@@ -7,7 +7,6 @@
 import sys
 from opentdf import TDFClient, NanoTDFClient, OIDCCredentials, LogLevel
 
-# encrypt the file and apply the policy on tdf file and also decrypt.
 try:
     # Create OIDC credentials object
     oidc_creds = OIDCCredentials()
