@@ -10,7 +10,7 @@ def get_version():
     python_sdk_version = None
 
     try:
-        with io.open(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', '..', 'VERSION')) as f:
+        with io.open(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', '..', '..', 'VERSION')) as f:
             python_sdk_version = f.read().strip()
     except FileNotFoundError as error:
         print(f'VERSION file not found make sure to run from the same directory as this file. Exception:{error}')
@@ -38,7 +38,7 @@ version = get_version()
 
 # Read the readme text from VERSION file.
 def load_readme():
-     with io.open('../../README.md', encoding="utf-8") as f:
+     with io.open('../../../README.md', encoding="utf-8") as f:
         return f.read()
 
 include_dirs = []

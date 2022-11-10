@@ -8,3 +8,4 @@ src/sample/.venv/
 src/python-bindings/pips/dist/
 src/python-bindings/pips/opentdf.egg-info/
 src/python-bindings/pips/wheelhouse_tmp/
+.venv/
