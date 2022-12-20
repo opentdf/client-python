@@ -4,15 +4,14 @@ from opentdf import TDFClient, NanoTDFClient, OIDCCredentials, LogLevel, TDFStor
 # encrypt the file and apply the policy on tdf file and also decrypt.
 OIDC_ENDPONT = "http://localhost:65432/"
 KAS_URL = "http://localhost:65432/api/kas"
+OIDC_CONFIGURATION_URL = "http://localhost:65432/auth/realms/tdf/.well-known/openid-configuration"
 
 try:
     # Create OIDC credentials object
-    oidc_creds = OIDCCredentials()
+    oidc_creds = OIDCCredentials(OIDC_CONFIGURATION_URL)
+    oidc_creds.set_client_id_and_client_secret(client_id = "tdf-client",
+                                 client_secret = "123-456")
 
-    oidc_creds.set_client_credentials_client_secret(client_id = "tdf-client",
-                                 client_secret = "123-456",
-                                 organization_name = "tdf",
-                                 oidc_endpoint = OIDC_ENDPONT)
 
     client = TDFClient(oidc_credentials = oidc_creds,
                         kas_url = KAS_URL)
