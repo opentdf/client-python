@@ -125,6 +125,7 @@ jobs:
 
 
   upload_to_pypi:
+    if: github.ref == 'refs/heads/main' # dont run on PRs
     needs: [ run-build-mac, run-build-windows, run-build-manylinux, run-build-manylinux-aarch64 ]
     runs-on: ubuntu-latest
     steps:
