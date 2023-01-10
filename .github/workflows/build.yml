@@ -53,125 +53,125 @@ jobs:
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  # run-build-mac-arm64:
-  #   runs-on: [macos-12, ARM64]
+  run-build-mac-arm64:
+    runs-on: [macos-12, ARM64]
 
-  #   strategy:
-  #     matrix:
-  #       python-version: [ '3.9', '3.10', '3.11' ]
+    strategy:
+      matrix:
+        python-version: [ '3.9', '3.10', '3.11' ]
 
-  #   env:
-  #     ARCH_TYPE: arm64
-  #     OSX_VERSION: "12_0"
+    env:
+      ARCH_TYPE: arm64
+      OSX_VERSION: "12_0"
 
-  #   steps:
-  #     - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-  #     - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-  #     - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v2
-  #     - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
 
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #           python-version: ${{ matrix.python-version }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+            python-version: ${{ matrix.python-version }}
 
-  #     - name: Install Conan
-  #       run: pip3 install conan==${{ env.CONAN_VER }} --force
+      - name: Install Conan
+        run: pip3 install conan==${{ env.CONAN_VER }} --force
 
-  #     - name: Run build
-  #       run: |
-  #         cd ${{ github.workspace }}
-  #         ./build-all.sh
+      - name: Run build
+        run: |
+          cd ${{ github.workspace }}
+          ./build-all.sh
 
-  #     - name: Upload MacOS arm64 wheels
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: wheel-macos-arm64
-  #         path: src/python-bindings/pips/dist/*.whl
+      - name: Upload MacOS arm64 wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheel-macos-arm64
+          path: src/python-bindings/pips/dist/*.whl
 
-  #     - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  # run-build-windows:
-  #   runs-on: windows-2019
-  #   env:
-  #     VBUILDRELEASE: Release
-  #     VBUILDDEBUG: Debug
-  #     VBUILDMODE: Release
+  run-build-windows:
+    runs-on: windows-2019
+    env:
+      VBUILDRELEASE: Release
+      VBUILDDEBUG: Debug
+      VBUILDMODE: Release
 
-  #   strategy:
-  #     matrix:
-  #       python-version: [ '3.8', '3.9', '3.10', '3.11' ]
+    strategy:
+      matrix:
+        python-version: [ '3.8', '3.9', '3.10', '3.11' ]
 
-  #   steps:
-  #     - run: echo "🎉 The job was automatically triggered by a %github.event_name% event."
-  #     - run: echo "🐧 This job is now running on a %runner.os% server hosted by GitHub!"
-  #     - run: echo "🔎 The name of your branch is %github.ref% and your repository is %github.repository%."
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a %github.event_name% event."
+      - run: echo "🐧 This job is now running on a %runner.os% server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is %github.ref% and your repository is %github.repository%."
 
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v2
-  #     - run: echo "💡 The %github.repository% repository has been cloned to the runner."
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: echo "💡 The %github.repository% repository has been cloned to the runner."
 
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-  #     - name: Install Conan
-  #       run: pip3 install conan==${{ env.CONAN_VER }} --force
+      - name: Install Conan
+        run: pip3 install conan==${{ env.CONAN_VER }} --force
 
-  #     - name: Setup MSBuild
-  #       uses: microsoft/setup-msbuild@v1
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
-  #     - name: Run build
-  #       run: |
-  #         cd ${{ github.workspace }}
-  #         .\build-all.bat
+      - name: Run build
+        run: |
+          cd ${{ github.workspace }}
+          .\build-all.bat
 
-  #     - name: Upload Windows wheels
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: wheel-windows
-  #         path: src/python-bindings/pips/dist/*.whl
+      - name: Upload Windows wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheel-windows
+          path: src/python-bindings/pips/dist/*.whl
 
-  # run-build-manylinux:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Build
-  #       run: ./docker/manylinux/deploy.sh
+  run-build-manylinux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: ./docker/manylinux/deploy.sh
 
-  #     - name: Upload Manylinux AMD64 wheels
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: wheel-manylinux-amd64
-  #         path: src/python-bindings/pips/dist/*.whl
+      - name: Upload Manylinux AMD64 wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheel-manylinux-amd64
+          path: src/python-bindings/pips/dist/*.whl
 
-  # run-build-manylinux-aarch64:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
+  run-build-manylinux-aarch64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-  #     - name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v2
-  #       with:
-  #         platforms: arm64
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
 
-  #     - name: Build
-  #       run: ./docker/manylinux_aarch64/deploy.sh
+      - name: Build
+        run: ./docker/manylinux_aarch64/deploy.sh
 
-  #     - name: Upload Manylinux ARM64 wheels
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: wheel-manylinux-arm64
-  #         path: src/python-bindings/pips/dist/*.whl
+      - name: Upload Manylinux ARM64 wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheel-manylinux-arm64
+          path: src/python-bindings/pips/dist/*.whl
 
 
   upload_to_pypi:
     if: github.ref == 'refs/heads/main' # dont run on PRs
-    needs: run-build-mac #, run-build-windows, run-build-manylinux, run-build-manylinux-aarch64 ]
+    needs: [ run-build-mac, run-build-mac-arm64, run-build-windows, run-build-manylinux, run-build-manylinux-aarch64 ]
     runs-on: ubuntu-latest
     steps:
       - name: Download wheel-macos artifact
