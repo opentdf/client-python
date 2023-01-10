@@ -2,7 +2,7 @@
 set -x
 export OPENTDF_BUILD="build"
 export OPENTDF_DST="opentdf-cpp"
-export WHEEL_OSX_PLAT_NAME="macosx_10_14_x86_64"
+export WHEEL_OSX_PLAT_NAME="macosx_{$OSX_VERSION}_{$ARCH_TYPE}"
 
 rm -rf $OPENTDF_DST
 rm -rf $OPENTDF_BUILD

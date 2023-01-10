@@ -19,6 +19,10 @@ jobs:
       matrix:
         python-version: [ '3.8', '3.9', '3.10', '3.11' ]
 
+    env:
+      ARCH_TYPE: x86_64
+      OSX_VERSION: "11_0"
+
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -48,6 +52,47 @@ jobs:
           path: src/python-bindings/pips/dist/*.whl
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  # run-build-mac-arm64:
+  #   runs-on: macos-12
+
+  #   strategy:
+  #     matrix:
+  #       python-version: [ '3.9', '3.10', '3.11' ]
+
+  #   env:
+  #     ARCH_TYPE: arm64
+  #     OSX_VERSION: "12_0"
+
+  #   steps:
+  #     - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+  #     - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+  #     - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v2
+  #     - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v4
+  #       with:
+  #           python-version: ${{ matrix.python-version }}
+
+  #     - name: Install Conan
+  #       run: pip3 install conan==${{ env.CONAN_VER }} --force
+
+  #     - name: Run build
+  #       run: |
+  #         cd ${{ github.workspace }}
+  #         ./build-all.sh
+
+  #     - name: Upload MacOS arm64 wheels
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: wheel-macos-arm64
+  #         path: src/python-bindings/pips/dist/*.whl
+
+  #     - run: echo "🍏 This job's status is ${{ job.status }}."
 
   run-build-windows:
     runs-on: windows-2019
@@ -134,6 +179,11 @@ jobs:
         with:
           name: wheel-macos
           path: dist
+      # - name: Download wheel-macos-arm64 artifact
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: wheel-macos-arm64
+      #     path: dist
       - name: Download wheel-windows artifact
         uses: actions/download-artifact@v3
         with:
