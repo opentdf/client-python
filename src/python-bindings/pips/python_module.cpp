@@ -40,6 +40,10 @@ PYBIND11_MODULE(opentdf, tdf) {
         .def(py::init([]() { return new OIDCCredentials();}), R"pbdoc(
               Create an OIDC credentials object
         )pbdoc")
+        .def(py::init([](const std::string &openIDConfigurationUrl) {
+            return new OIDCCredentials(openIDConfigurationUrl);}), R"pbdoc(
+              Create an OIDC credentials object
+        )pbdoc")
         .def("set_client_credentials_client_secret", &OIDCCredentials::setClientCredentialsClientSecret,
                 py::arg("client_id"), py::arg("client_secret"),
                 py::arg("organization_name"), py::arg("oidc_endpoint"), R"pbdoc(
@@ -50,6 +54,14 @@ PYBIND11_MODULE(opentdf, tdf) {
                 client_secret(string): The client secret
                 organization_name(string): The OIDC realm or organization the client belongs to
                 oidc_endpoint(string): The OIDC server url
+        )pbdoc")
+        .def("set_client_id_and_client_secret", &OIDCCredentials::setClientIdAndClientSecret,
+                py::arg("client_id"), py::arg("client_secret"), R"pbdoc(
+                Set the client credentials that will be use for authz with OIDC server
+
+            Args:
+                client_id(string): The client id
+                client_secret(string): The client secret
         )pbdoc")
         .def("set_client_credentials_pki", &OIDCCredentials::setClientCredentialsPKI,
                 py::arg("client_id"),
@@ -66,6 +78,19 @@ PYBIND11_MODULE(opentdf, tdf) {
                 certificate_authority(string): The certificate authority to use
                 organization_name(string): The OIDC realm or organization the client belongs to
                 oidc_endpoint(string): The OIDC server url
+        )pbdoc")
+        .def("set_client_id_and_pki", &OIDCCredentials::setClientIdAndPKI,
+                py::arg("client_id"),
+                py::arg("client_key_file_name"),
+                py::arg("client_cert_file_name"),
+                py::arg("certificate_authority"), R"pbdoc(
+                Set the client credentials that will be use for authz with OIDC server
+
+            Args:
+                client_id(string): The client id
+                client_key_file_name(string): The name of the file containing the client key
+                client_cert_file_name(string): The name of the file containing the client certificate
+                certificate_authority(string): The certificate authority to use
         )pbdoc")
         .def("get_client_id", &OIDCCredentials::getClientId, R"pbdoc(
             Return the client id.
