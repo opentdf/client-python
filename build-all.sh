@@ -18,6 +18,6 @@ conan install .. --build=missing
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
   python -m pip install --upgrade pip
-  python -m pip install wheel pybind11 twine
+  python -m pip install wheel==0.3.8 pybind11==2.10.3 twine==4.0.2
   python setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
 fi
