@@ -1,4 +1,4 @@
-name: Run build on push
+name: Run build
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -42,7 +42,7 @@ jobs:
           ./build-all.sh
 
       - name: Upload MacOS wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheel-macos
           path: src/python-bindings/pips/dist/*.whl
@@ -86,7 +86,7 @@ jobs:
           .\build-all.bat
 
       - name: Upload Windows wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheel-windows
           path: src/python-bindings/pips/dist/*.whl
@@ -99,7 +99,7 @@ jobs:
         run: ./docker/manylinux/deploy.sh
 
       - name: Upload Manylinux AMD64 wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheel-manylinux-amd64
           path: src/python-bindings/pips/dist/*.whl
@@ -118,7 +118,7 @@ jobs:
         run: ./docker/manylinux_aarch64/deploy.sh
 
       - name: Upload Manylinux ARM64 wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: wheel-manylinux-arm64
           path: src/python-bindings/pips/dist/*.whl
