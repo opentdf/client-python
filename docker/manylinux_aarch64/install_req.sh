@@ -12,7 +12,7 @@ export VER_PYTHON3_PIP=9.0.3-8.el7
 export VER_PYTHON_DEVEL=3.8.13-1.el7
 export VER_SCIKIT=0.16.7
 export VER_SCL_UTILS=20130529-19.el7
-export VER_SETUPTOOLS=67.6.0
+export VER_SETUPTOOLS=59.6.0
 export VER_WGET=1.14-18.el7_6.1
 
 # Install a system package required by our library
