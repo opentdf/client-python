@@ -2,7 +2,7 @@
 set -e -x
 
 # Pin versions
-export VER_CMAKE=3.21.0
+export VER_CMAKE=3.26.1
 export VER_CENTOS_RELEASE_SCL=2-3.el7.centos
 export VER_CONAN=1.59.0
 export VER_DEVTOOLSET=9.1-0.el7
@@ -21,6 +21,7 @@ yum install -y centos-release-scl-$VER_CENTOS_RELEASE_SCL devtoolset-9-$VER_DEVT
 source /opt/rh/devtoolset-9/enable
 source /opt/rh/rh-python38/enable
 
+pip3 install --upgrade pip
 pip3 install cmake==$VER_CMAKE setuptools==$VER_SETUPTOOLS ninja==$VER_NINJA scikit-build==$VER_SCIKIT pybind11==$VER_PYBIND --force
 pip3 install --user conan==$VER_CONAN --force
 
