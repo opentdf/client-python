@@ -2,7 +2,7 @@
 set -e -x
 
 # Pin versions
-export VER_CMAKE=3.26.1
+export VER_CMAKE=3.21.0
 export VER_CENTOS_RELEASE_SCL=2-3.el7.centos
 export VER_CONAN=1.59.0
 export VER_DEVTOOLSET=9.1-0.el7
