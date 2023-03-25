@@ -551,6 +551,20 @@ PYBIND11_MODULE(opentdf, tdf) {
                  sdkConsumerCertAuthority(string): Path to cert authority file.
                  max_key_iterations(int) - Maximum number of encrypt operations before a new key is generated.(default is 8388607).
             )pbdoc")
+        .def(py::init([](const OIDCCredentials& oidcCredentials, const std::string &kasUrl,
+                         uint32_t maxKeyIterations) {
+                     return new NanoTDFDatasetClient(oidcCredentials, kasUrl, maxKeyIterations);
+             }),
+             py::arg("oidc_credentials"),
+             py::arg("kas_url"),
+             py::arg("max_key_iterations") = kNTDFMaxKeyIterations, R"pbdoc(
+                
+             Create an instance of nano tdf dataset client.
+              Args:
+                 oidc_credentials(OIDCCredentials): OIDC credentials object
+                 kas_url(string): The KAS backend url
+                 max_key_iterations(int) - Maximum number of encrypt operations before a new key is generated.(default is 8388607).
+            )pbdoc") 
         .def("share_with_users", &NanoTDFDatasetClient::shareWithUsers, py::arg("users_list"), R"pbdoc(
                Add access to the TDF file/data for the users in the list
 
