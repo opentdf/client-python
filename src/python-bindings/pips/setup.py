@@ -7,7 +7,7 @@ from setuptools import setup, Extension
 package_name = 'opentdf'
 
 def get_version():
-    python_sdk_version = "0.0.dev1"
+    python_sdk_version = "1.2.1"
 
     print(f'Platform:{sys.platform}')
     print(f'Python SDK version:{python_sdk_version}')
