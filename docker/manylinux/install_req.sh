@@ -1,31 +1,20 @@
 #!/bin/bash
 set -e -x
 
-# Pin versions
-export VER_CMAKE=3.26.1
-export VER_CENTOS_RELEASE_SCL=2-3.el7.centos
-export VER_CONAN=1.59.0
-export VER_DEVTOOLSET=9.1-0.el7
-export VER_NINJA=1.11.1
-export VER_PYBIND=2.10.3
-export VER_PYTHON_DEVEL=3.8.13-1.el7
-export VER_SCIKIT=0.16.7
-export VER_SCL_UTILS=20130529-19.el7
-export VER_SETUPTOOLS=67.6.0
-export VER_WGET=1.14-18.el7_6.1
-
 # Install a system package required by our library
-yum install -y centos-release-scl-$VER_CENTOS_RELEASE_SCL devtoolset-9-$VER_DEVTOOLSET rh-python38-python-devel-$VER_PYTHON_DEVEL scl-utils-$VER_SCL_UTILS wget-$VER_WGET
+yum install -y centos-release-scl devtoolset-7 rh-python36-python-devel scl-utils wget 
 
-source /opt/rh/devtoolset-9/enable
-source /opt/rh/rh-python38/enable
-export PATH=$PATH:/opt/_internal/tools/bin
+source /opt/rh/devtoolset-7/enable
+source /opt/rh/rh-python36/enable
 
 pip install --upgrade pip
+pip install --upgrade cmake setuptools ninja scikit-build pybind11
+pip install --user conan
 
-pip install cmake==$VER_CMAKE setuptools==$VER_SETUPTOOLS ninja==$VER_NINJA scikit-build==$VER_SCIKIT pybind11==$VER_PYBIND --force
-
-pip install conan==$VER_CONAN --force
+# install golang
+wget -c https://storage.googleapis.com/golang/go1.13.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
 
 ./build-all.sh
 ./docker/manylinux/build_wheels.sh
