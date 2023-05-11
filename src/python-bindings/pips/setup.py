@@ -7,28 +7,7 @@ from setuptools import setup, Extension
 package_name = 'opentdf'
 
 def get_version():
-    python_sdk_version = None
-
-    try:
-        with io.open(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', '..', '..', 'VERSION')) as f:
-            python_sdk_version = f.read().strip()
-    except FileNotFoundError as error:
-        print(f'VERSION file not found make sure to run from the same directory as this file. Exception:{error}')
-        raise
-
-    git_branch = None
-    if 'BUILDKITE_BRANCH' in os.environ:
-        git_branch = os.environ['BUILDKITE_BRANCH']
-
-    build_number = None
-    if 'BUILDKITE_BUILD_NUMBER' in os.environ:
-        build_number = os.environ['BUILDKITE_BUILD_NUMBER']
-
-    if git_branch and build_number:
-        if git_branch == 'develop':
-            python_sdk_version = f'{python_sdk_version}a{build_number}'
-        elif git_branch == 'master':
-            python_sdk_version = f'{python_sdk_version}b{build_number}'
+    python_sdk_version = "0.0.dev1"
 
     print(f'Platform:{sys.platform}')
     print(f'Python SDK version:{python_sdk_version}')

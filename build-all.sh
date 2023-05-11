@@ -17,12 +17,8 @@ mkdir $OPENTDF_DST/lib
 mkdir $OPENTDF_DST/include
 
 cd $OPENTDF_BUILD
-conan --version
-conan install .. --build=missing
 
-cd ../src/python-bindings/pips
-if [[ $OSTYPE == "darwin"* ]]; then
-  python -m pip install --upgrade pip
-  python -m pip install wheel==$VER_WHEEL pybind11==$VER_PYBIND twine==$VER_TWINE --force
-  python setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
-fi
+pip install pybind11 conan==1.59.0
+
+conan --version
+conan install "$GITHUB_WORKSPACE" --build=missing
