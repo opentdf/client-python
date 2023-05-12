@@ -79,6 +79,20 @@ PYBIND11_MODULE(opentdf, tdf) {
                 organization_name(string): The OIDC realm or organization the client belongs to
                 oidc_endpoint(string): The OIDC server url
         )pbdoc")
+        .def("set_client_credentials_token_exchange", &OIDCCredentials::setClientCredentialsTokenExchange,
+                py::arg("client_id"),
+                py::arg("client_secret"),
+                py::arg("external_exchange_token"),
+                py::arg("organization_name"), py::arg("oidc_endpoint"), R"pbdoc(
+                Set the client credentials that will be use for authz with OIDC server and external token.
+
+            Args:
+                client_id(string): The client id
+                client_secret(string): The client secret
+                external_exchange_token(string): The external token that will be processed and exchanged for a new one.
+                organization_name(string): The OIDC realm or organization the client belongs to
+                oidc_endpoint(string): The OIDC server url
+        )pbdoc")        
         .def("set_client_id_and_pki", &OIDCCredentials::setClientIdAndPKI,
                 py::arg("client_id"),
                 py::arg("client_key_file_name"),
