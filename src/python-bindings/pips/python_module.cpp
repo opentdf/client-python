@@ -58,8 +58,9 @@ PYBIND11_MODULE(opentdf, tdf) {
         .value("StringStatement", StatementType::StringStatement)
         .value("Base64BinaryStatement", StatementType::Base64BinaryStatement)
         .value("XMLBase64", StatementType::XMLBase64)
+        .value("HandlingStatement", StatementType::HandlingStatement)
         .value("String", StatementType::String)
-        .value("Unknow", StatementType::Unknow);
+        .value("Unknow", StatementType::Unknown);
 
 
     py::class_<StatementGroup>(tdf, "StatementGroup")
@@ -111,33 +112,44 @@ PYBIND11_MODULE(opentdf, tdf) {
         )pbdoc");
 
 
-    py::class_<DefaultAssertion>(tdf, "DefaultAssertion")
-        .def(py::init([](Scope scope) { 
-                return new DefaultAssertion(scope);}), R"pbdoc(
+    py::class_<Assertion>(tdf, "Assertion")
+        .def(py::init([](AssertionType type, Scope scope) { 
+                return new Assertion(type, scope);}), R"pbdoc(
               Create a default assertion
+
+            Args:
+                type(AssertionType): Assertion type, Handling or Base
+                scope(Scope): Scope of the assertion  
         )pbdoc")
-        .def("set_id", &DefaultAssertion::setId,
+        .def("set_id", &Assertion::setId,
                 py::arg("id"), R"pbdoc(
                 Set the id for the assertion
 
             Args:
                 id(String): The assertion id
         )pbdoc")
-        .def("set_type", &DefaultAssertion::setType,
+        .def("set_type", &Assertion::setType,
                 py::arg("type"), R"pbdoc(
                 Return the type of the assertion
 
             Args:
                 type(String): The type of the assetion
         )pbdoc")
-        .def("set_statement_group", &DefaultAssertion::setStatementGroup,
+        .def("set_statement_group", &Assertion::setStatementGroup,
                 py::arg("statement_group"), R"pbdoc(
                 Set the statement group for the assertion
 
             Args:
                 statement_group(StatementGroup): Statement group
         )pbdoc")
-        .def("set_statement_metadata", &DefaultAssertion::setStatementMetadata,
+        .def("set_applied_to_state", &Assertion::setAppliesToState,
+                py::arg("applied_to_state"), R"pbdoc(
+                Set the applied state for the assertion.
+
+            Args:
+                applied_to_state(AppliesToState): The applies to state
+        )pbdoc")
+        .def("set_statement_metadata", &Assertion::setStatementMetadata,
                 py::arg("statement_metadata"), R"pbdoc(
                 Set the statement metadata for the assertion
 
@@ -145,33 +157,6 @@ PYBIND11_MODULE(opentdf, tdf) {
                 statement_metaData(strimg): statement metdata for the assertion
         )pbdoc");    
         
-    py::class_<HandlingAssertion>(tdf, "HandlingAssertion")
-        .def(py::init([](Scope scope) { 
-                return new HandlingAssertion(scope);}), R"pbdoc(
-              Create a handling assertion
-        )pbdoc")
-        .def("set_id", &HandlingAssertion::setId,
-                py::arg("id"), R"pbdoc(
-                Set the id for the handling assertion
-
-            Args:
-                id(String): The assertion id
-        )pbdoc")
-        .def("set_applied_to_state", &HandlingAssertion::setAppliesToState,
-                py::arg("type"), R"pbdoc(
-                Set the applied state for the assertion.
-
-            Args:
-                appled(AppliesToState): The applies to state
-        )pbdoc")
-        .def("set_handling_statement", &HandlingAssertion::setHandlingStatement,
-                py::arg("handling_statement"), R"pbdoc(
-                Set the handling statement for the assertion
-
-            Args:
-                handling_statement(strimg): statement metdata for the assertion
-        )pbdoc"); 
-
     py::class_<OIDCCredentials>(tdf, "OIDCCredentials")
         .def(py::init([]() { return new OIDCCredentials();}), R"pbdoc(
               Create an OIDC credentials object
@@ -312,19 +297,12 @@ PYBIND11_MODULE(opentdf, tdf) {
                 awsSecretAccessKey(string) - Secret access key for AWS credentials
                 awsRegionName(string) - Region name for AWS credentials
         )pbdoc")
-        .def("set_handling_assertion", &TDFStorageType::setHandlingAssertion,
-                 py::arg("handling_assertion"), R"pbdoc(
-                Set the handling assertion to the TDF
+        .def("set_assertion", &TDFStorageType::setAssertion,
+                 py::arg("assertion"), R"pbdoc(
+                Set the assertion to the TDF
 
             Args:
-                handlingAssertion(HandlingAssertion): The handling assertion object
-        )pbdoc")
-        .def("set_default_assertion", &TDFStorageType::setDefaultAssertion,
-                 py::arg("default_assertion"), R"pbdoc(
-                Set the default assertion to the TDF
-
-            Args:
-                default_assertion(DefaultAssertion): The default assertion object
+                assertion(Assertion): The assertion object
         )pbdoc")
         .def("__repr__", [](const TDFStorageType &tdfStorageType) {
                 return tdfStorageType.str();
