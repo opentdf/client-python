@@ -4,7 +4,7 @@ mkdir build
 pushd build
 
 REM pin versions
-set VER_WHEEL=0.38.4
+set VER_WHEEL=0.41.0
 set VER_PYBIND=2.10.3
 set VER_TWINE=4.0.2
 
