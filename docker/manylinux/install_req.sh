@@ -27,7 +27,7 @@ pip install cmake==$VER_CMAKE setuptools==$VER_SETUPTOOLS ninja==$VER_NINJA scik
 
 pip install conan==$VER_CONAN --force
 
-git clone git@github.com:opentdf/client-conan.git
+git clone https://github.com/opentdf/client-conan.git
 
 conan create recipe/all opentdf-client/$VCLIENT_CPP_VER@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=$VCONAN_BRANCH_VERSION
 
