@@ -14,6 +14,9 @@ docker run --rm \
    -w /io \
    -e PATH=/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
    -e PLAT=$PLAT \
+   -e VCLIENT_CPP_VER \
+   -e VCONAN_BRANCH_VERSION \
+   -e VCONAN_RECIPE_VER \
    -e VIRTRU_RUN_E2E_TESTS=false \
    $DOCKER_IMAGE \
    ./docker/manylinux_aarch64/install_req.sh
