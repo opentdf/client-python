@@ -25,6 +25,10 @@ pip3 install --upgrade pip
 pip3 install cmake==$VER_CMAKE setuptools==$VER_SETUPTOOLS ninja==$VER_NINJA scikit-build==$VER_SCIKIT pybind11==$VER_PYBIND --force
 pip3 install --user conan==$VER_CONAN --force
 
+git clone git@github.com:opentdf/client-conan.git
+
+conan create recipe/all opentdf-client/$VCLIENT_CPP_VER@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=$VCONAN_BRANCH_VERSION
+
 ./build-all.sh
 
 ./docker/manylinux_aarch64/build_wheels.sh
