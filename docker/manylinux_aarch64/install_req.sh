@@ -14,13 +14,13 @@ export VER_SCIKIT=0.16.7
 export VER_SCL_UTILS=20130529-19.el7
 export VER_SETUPTOOLS=59.6.0
 export VER_WGET=1.14-18.el7_6.1
-export VER_PERLIPCCMD=
+export VER_PERLIPCCMD=0.80-4.el7.noarch
+export VER_PERLDIGESTSHA=
 
 # Install a system package required by our library
 yum install -y centos-release-scl-$VER_CENTOS_RELEASE_SCL devtoolset-9-$VER_DEVTOOLSET rh-python38-python-devel-$VER_PYTHON_DEVEL python3-pip-$VER_PYTHON3_PIP scl-utils-$VER_SCL_UTILS wget-$VER_WGET
 # TODO - needs version number, install twice to get message containing version
-yum install -y perl-IPC-Cmd
-yum install -y perl-IPC-Cmd
+yum install -y perl-IPC-Cmd-$VER_PERLIPCCMD perl-Digest-SHA
 
 source /opt/rh/devtoolset-9/enable
 source /opt/rh/rh-python38/enable
