@@ -14,5 +14,8 @@ docker run --rm \
    -w /io \
    -e PATH=/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
    -e PLAT=$PLAT \
+   -e VCLIENT_CPP_VER \
+   -e VCONAN_BRANCH_VERSION \
+   -e VCONAN_RECIPE_VER \
    $DOCKER_IMAGE \
    ./docker/manylinux/install_req.sh

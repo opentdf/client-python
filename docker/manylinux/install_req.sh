@@ -27,5 +27,11 @@ pip install cmake==$VER_CMAKE setuptools==$VER_SETUPTOOLS ninja==$VER_NINJA scik
 
 pip install conan==$VER_CONAN --force
 
+# Pre-load conan cache with build from local conan recipe instead of CCI to avoid having to wait for CCI review process
+git clone https://github.com/opentdf/client-conan.git
+cd client-conan
+conan create recipe/all opentdf-client/$VCLIENT_CPP_VER@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=$VCONAN_BRANCH_VERSION
+cd ..
+
 ./build-all.sh
 ./docker/manylinux/build_wheels.sh
