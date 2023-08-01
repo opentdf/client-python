@@ -68,7 +68,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   run-build-mac-m1:
-    runs-on: m1mac
+    runs-on: m1max
     needs: run-build-mac
 
     strategy:
