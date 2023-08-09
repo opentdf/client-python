@@ -69,7 +69,6 @@ if sys.platform == 'darwin':
     cflags.append('-std=c++17')
     cflags.append('-fvisibility=hidden')
     cflags.append('-mmacosx-version-min=10.14')
-    cflags.append('--target=arm64-apple-macos11')
 else:
     cflags.append('-std=c++17')
     cflags.append('-fvisibility=hidden')
