@@ -1,8 +1,20 @@
 #!/bin/bash
 set -ex
+
+# This can be built two ways on mac: x86 binaries or M1 binaries
+# It will check your system and Do The Right Thing
+
 export OPENTDF_BUILD="build"
 export OPENTDF_DST="opentdf-cpp"
-export WHEEL_OSX_PLAT_NAME="macosx_10_14_x86_64"
+
+# This naming contains the *MINIMUM* OS version supported, which may not be the one running currently
+if [[ $OSTYPE == "darwin"* ]]; then
+  if [[ `uname -m` == "arm64" ]]; then
+    export WHEEL_OSX_PLAT_NAME="macosx_12_0_arm64"
+  else
+    export WHEEL_OSX_PLAT_NAME="macosx_10_14_x86_64"
+  fi
+fi
 
 # Pin versions
 export VER_WHEEL=0.38.4
@@ -22,7 +34,7 @@ conan install .. --build=missing
 
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
-  python -m pip install --upgrade pip
-  python -m pip install wheel==$VER_WHEEL pybind11==$VER_PYBIND twine==$VER_TWINE --force
-  python setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
+  python3 -m pip install --upgrade pip
+  python3 -m pip install wheel==$VER_WHEEL pybind11==$VER_PYBIND twine==$VER_TWINE --force
+  python3 setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
 fi
