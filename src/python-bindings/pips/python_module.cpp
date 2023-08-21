@@ -12,6 +12,7 @@
 #include <nanotdf_client.h>
 #include <nanotdf_dataset_client.h>
 #include <tdf_client.h>
+#include <tdf_assertion.h>
 #include <oidc_credentials.h>
 #include <version.h>
 
@@ -36,6 +37,126 @@ PYBIND11_MODULE(opentdf, tdf) {
         .value("Error", LogLevel::Error)
         .value("Fatal", LogLevel::Fatal);
 
+    py::enum_<AssertionType>(tdf, "AssertionType")
+        .value("Handling", AssertionType::Handling)
+        .value("Base", AssertionType::Base);
+
+    py::enum_<Scope>(tdf, "Scope")
+        .value("TDO", Scope::TDO)
+        .value("PAYL", Scope::PAYL)
+        .value("EXPLICIT", Scope::EXPLICIT)
+        .value("Unknown", Scope::Unknown);
+
+    py::enum_<AppliesToState>(tdf, "AppliesToState")
+        .value("encrypted", AppliesToState::encrypted)
+        .value("unencrypted", AppliesToState::unencrypted)
+        .value("Unknown", AppliesToState::Unknown);
+
+    py::enum_<StatementType>(tdf, "StatementType")
+        .value("ReferenceStatement", StatementType::ReferenceStatement)
+        .value("StructuredStatement", StatementType::StructuredStatement)
+        .value("StringStatement", StatementType::StringStatement)
+        .value("Base64BinaryStatement", StatementType::Base64BinaryStatement)
+        .value("XMLBase64", StatementType::XMLBase64)
+        .value("HandlingStatement", StatementType::HandlingStatement)
+        .value("String", StatementType::String)
+        .value("Unknow", StatementType::Unknown);
+
+
+    py::class_<StatementGroup>(tdf, "StatementGroup")
+        .def(py::init([](StatementType statementType) { 
+                return new StatementGroup(statementType);}), R"pbdoc(
+              Create an statement group
+        )pbdoc")
+        .def("set_statement_type", &StatementGroup::setStatementType,
+                py::arg("statement_type"), R"pbdoc(
+                Set the statement type for the statement group
+
+            Args:
+                statement_type(StatementType): The Statement type
+        )pbdoc")
+        .def("set_filename", &StatementGroup::setFilename,
+                py::arg("filename"), R"pbdoc(
+                Set the filename for the statement group
+
+            Args:
+                filename(String): The filename
+        )pbdoc")
+        .def("set_media_type", &StatementGroup::setMediaType,
+                py::arg("media_type"), R"pbdoc(
+                Set the media type for the statement group
+
+            Args:
+                media_type(String): Media type
+        )pbdoc")
+        .def("set_uri", &StatementGroup::setUri,
+                py::arg("uri"), R"pbdoc(
+                Set the uri for the statement group
+
+            Args:
+                uri(String): uri
+        )pbdoc")
+        .def("set_value", &StatementGroup::setValue,
+                py::arg("value"), R"pbdoc(
+                Set the value for the statement group
+
+            Args:
+                value(String): Value for the statement group
+        )pbdoc")
+        .def("set_is_encrypted", &StatementGroup::setIsEncrypted,
+                py::arg("is_encrypted"), R"pbdoc(
+                Set value for the isEncrypted flag for the statement group
+
+            Args:
+                is_encrypted(bool): is encrypted flag
+        )pbdoc");
+
+
+    py::class_<Assertion>(tdf, "Assertion")
+        .def(py::init([](AssertionType type, Scope scope) { 
+                return new Assertion(type, scope);}), R"pbdoc(
+              Create a default assertion
+
+            Args:
+                type(AssertionType): Assertion type, Handling or Base
+                scope(Scope): Scope of the assertion  
+        )pbdoc")
+        .def("set_id", &Assertion::setId,
+                py::arg("id"), R"pbdoc(
+                Set the id for the assertion
+
+            Args:
+                id(String): The assertion id
+        )pbdoc")
+        .def("set_type", &Assertion::setType,
+                py::arg("type"), R"pbdoc(
+                Return the type of the assertion
+
+            Args:
+                type(String): The type of the assetion
+        )pbdoc")
+        .def("set_statement_group", &Assertion::setStatementGroup,
+                py::arg("statement_group"), R"pbdoc(
+                Set the statement group for the assertion
+
+            Args:
+                statement_group(StatementGroup): Statement group
+        )pbdoc")
+        .def("set_applied_to_state", &Assertion::setAppliesToState,
+                py::arg("applied_to_state"), R"pbdoc(
+                Set the applied state for the assertion.
+
+            Args:
+                applied_to_state(AppliesToState): The applies to state
+        )pbdoc")
+        .def("set_statement_metadata", &Assertion::setStatementMetadata,
+                py::arg("statement_metadata"), R"pbdoc(
+                Set the statement metadata for the assertion
+
+            Args:
+                statement_metaData(strimg): statement metdata for the assertion
+        )pbdoc");    
+        
     py::class_<OIDCCredentials>(tdf, "OIDCCredentials")
         .def(py::init([]() { return new OIDCCredentials();}), R"pbdoc(
               Create an OIDC credentials object
@@ -137,25 +258,36 @@ PYBIND11_MODULE(opentdf, tdf) {
             return oidcCredentials.str();
         });
 
+
+        /*
+                /// Add the handling assertion to the TDF
+        /// \param handlingAssertion - The handling assertion object
+        void setHandlingAssertion(const HandlingAssertion& handlingAssertion);
+
+        /// Add the default assertion to the TDF
+        /// \param defaultAssertion - The default assertion object
+        void setDefaultAssertion(const DefaultAssertion& defaultAssertion);
+        */
+
     py::class_<TDFStorageType>(tdf, "TDFStorageType")
             .def(py::init([]() { return new TDFStorageType();}), R"pbdoc(
               Create an TDF storage type
         )pbdoc")
-            .def("set_tdf_storage_file_type", &TDFStorageType::setTDFStorageFileType,
+        .def("set_tdf_storage_file_type", &TDFStorageType::setTDFStorageFileType,
                  py::arg("file_path"), R"pbdoc(
                 set the TDF storage type as type file.
 
             Args:
                 file_path(string): The file on which the tdf operations to be performed on
         )pbdoc")
-            .def("set_tdf_storage_string_type", &TDFStorageType::setTDFStorageStringType,
+        .def("set_tdf_storage_string_type", &TDFStorageType::setTDFStorageStringType,
                  py::arg("str"), R"pbdoc(
                 set the TDF storage type as type string.
 
             Args:
                 str(string): The str container containing data to be encrypted or decrypted
         )pbdoc")
-            .def("set_tdf_storage_s3_type", &TDFStorageType::setTDFStorageS3Type,
+        .def("set_tdf_storage_s3_type", &TDFStorageType::setTDFStorageS3Type,
                  py::arg("S3Url"), py::arg("awsAccessKeyId"), py::arg("awsSecretAccessKey"), py::arg("awsRegionName"), R"pbdoc(
                 set the TDF storage type as type S3.
 
@@ -165,9 +297,16 @@ PYBIND11_MODULE(opentdf, tdf) {
                 awsSecretAccessKey(string) - Secret access key for AWS credentials
                 awsRegionName(string) - Region name for AWS credentials
         )pbdoc")
-            .def("__repr__", [](const TDFStorageType &tdfStorageType) {
+        .def("set_assertion", &TDFStorageType::setAssertion,
+                 py::arg("assertion"), R"pbdoc(
+                Set the assertion to the TDF
+
+            Args:
+                assertion(Assertion): The assertion object
+        )pbdoc")
+        .def("__repr__", [](const TDFStorageType &tdfStorageType) {
                 return tdfStorageType.str();
-            });
+        });
 
     // TDF Client python wrapper.
     // NOTE: Intentionally have long lines because sed script need to parse for arguments
