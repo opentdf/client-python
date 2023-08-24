@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: wheel-macos
-          path: ./wheelhouse/*.whl
+          path: src/python-bindings/pips/wheelhouse/*.whl
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
