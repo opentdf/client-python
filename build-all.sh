@@ -35,6 +35,6 @@ conan install .. --build=missing
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
   python3 -m pip install --upgrade pip
-  python3 -m pip install wheel==$VER_WHEEL pybind11==$VER_PYBIND twine==$VER_TWINE --force
-  python3 setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
+  python3 -m pip install wheel==$VER_WHEEL pybind11==$VER_PYBIND twine==$VER_TWINE cibuildwheel --force
+  cibuildwheel --platform macos
 fi
