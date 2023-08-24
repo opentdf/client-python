@@ -41,6 +41,11 @@ jobs:
       - name: Install Conan
         run: pip3 install conan==${{ env.VCONAN_VER }} --force
 
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.15.0
+        env:
+          CIBW_ARCHS_MACOS: x86_64 arm64
+
       - name: Check out client-cpp code
         uses: actions/checkout@v3
         with:
