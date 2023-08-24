@@ -41,11 +41,6 @@ jobs:
       - name: Install Conan
         run: pip3 install conan==${{ env.VCONAN_VER }} --force
 
-      - name: Build wheels
-        uses: pypa/cibuildwheel@v2.15.0
-        env:
-          CIBW_ARCHS_MACOS: x86_64 arm64
-
       - name: Check out client-cpp code
         uses: actions/checkout@v3
         with:
@@ -60,6 +55,8 @@ jobs:
           conan create recipe/all opentdf-client/${{ env.VCLIENT_CPP_VER }}@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=${{ env.VCONAN_BRANCH_VERSION }}
 
       - name: Run build
+        env:
+          CIBW_ARCHS_MACOS: x86_64 arm64
         run: |
           cd ${{ github.workspace }}
           ./build-all.sh
