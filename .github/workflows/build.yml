@@ -20,14 +20,22 @@ jobs:
   run-build-mac:
     runs-on: macos-11
 
+    strategy:
+      matrix:
+        python-version: [ '3.8', '3.9', '3.10', '3.11' ]
+
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-
       - name: Check out repository code
         uses: actions/checkout@v3
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+            python-version: ${{ matrix.python-version }}
 
       - name: Install Conan
         run: pip3 install conan==${{ env.VCONAN_VER }} --force
@@ -38,25 +46,22 @@ jobs:
           repository: opentdf/client-conan
           ref: ${{ env.VCONAN_RECIPE_VER }}
           path: client-conan
-
       - name: Get client-cpp into conan local cache, built from repo if necessary
         run: |
           cd ${{ github.workspace }}
           cd client-conan
           conan create recipe/all opentdf-client/${{ env.VCLIENT_CPP_VER }}@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=${{ env.VCONAN_BRANCH_VERSION }}
-
       - name: Run build
         env:
           CIBW_ARCHS_MACOS: x86_64 arm64
         run: |
           cd ${{ github.workspace }}
           ./build-all.sh
-
       - name: Upload MacOS wheels
         uses: actions/upload-artifact@v3
         with:
           name: wheel-macos
-          path:  ./wheelhouse/*.whl
+          path: ./wheelhouse/*.whl
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
