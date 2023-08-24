@@ -18,9 +18,11 @@ cd $OPENTDF_BUILD
 conan --version
 conan install .. --build=missing
 
+# We should able to use cibuildwheel on windows and linux
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
   export CIBW_ARCHS_MACOS="x86_64 arm64"
+  export CIBW_SKIP="cp36-* cp12-*"
   python3 -m pip install --upgrade pip
   python3 -m pip install cibuildwheel --force
   cibuildwheel --platform macos

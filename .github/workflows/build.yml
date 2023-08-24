@@ -54,6 +54,8 @@ jobs:
       - name: Run build
         env:
           CIBW_ARCHS_MACOS: x86_64 arm64
+          CIBW_SKIP: cp36-* cp12-*
+
         run: |
           cd ${{ github.workspace }}
           ./build-all.sh
