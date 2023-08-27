@@ -7,20 +7,6 @@ set -ex
 export OPENTDF_BUILD="build"
 export OPENTDF_DST="opentdf-cpp"
 
-# This naming contains the *MINIMUM* OS version supported, which may not be the one running currently
-if [[ $OSTYPE == "darwin"* ]]; then
-  if [[ `uname -m` == "arm64" ]]; then
-    export WHEEL_OSX_PLAT_NAME="macosx_12_0_arm64"
-  else
-    export WHEEL_OSX_PLAT_NAME="macosx_10_14_x86_64"
-  fi
-fi
-
-# Pin versions
-export VER_WHEEL=0.38.4
-export VER_PYBIND=2.10.3
-export VER_TWINE=4.0.2
-
 rm -rf $OPENTDF_DST
 rm -rf $OPENTDF_BUILD
 mkdir $OPENTDF_BUILD
@@ -32,9 +18,12 @@ cd $OPENTDF_BUILD
 conan --version
 conan install .. --build=missing
 
+# We should able to use cibuildwheel on windows and linux
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
+  export CIBW_ARCHS_MACOS="x86_64 arm64"
+  export CIBW_SKIP="cp36-* cp12-*"
   python3 -m pip install --upgrade pip
-  python3 -m pip install wheel==$VER_WHEEL pybind11==$VER_PYBIND twine==$VER_TWINE --force
-  python3 setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
+  python3 -m pip install cibuildwheel --force
+  cibuildwheel --platform macos
 fi
