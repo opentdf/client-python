@@ -17,5 +17,6 @@ docker run --rm \
    -e VCLIENT_CPP_VER \
    -e VCONAN_BRANCH_VERSION \
    -e VCONAN_RECIPE_VER \
+   -e VEXPORT_COMBINED_LIB \
    $DOCKER_IMAGE \
    ./docker/manylinux/install_req.sh
