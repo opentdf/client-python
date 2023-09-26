@@ -54,17 +54,24 @@ jobs:
           conan create recipe/all opentdf-client/${{ env.VCLIENT_CPP_VER }}@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=${{ env.VCONAN_BRANCH_VERSION }}
       - name: Run build
         env:
-          CIBW_ARCHS_MACOS: x86_64 arm64
+          CIBW_ARCHS_MACOS: x86_64
           CIBW_SKIP: cp36-* cp12-*
 
         run: |
           cd ${{ github.workspace }}
           ./build-all.sh
-      - name: Upload MacOS wheels
+
+      - name: Upload MacOS x86 wheels
         uses: actions/upload-artifact@v3
         with:
-          name: wheel-macos
+          name: wheel-macos-x86
           path: src/python-bindings/pips/wheelhouse/*.whl
+
+      - name: Upload MacOS arm64 wheels
+        uses: actions/upload-artifact@v3
+        with:
+          name: wheel-macos-arm64
+          path: m1-wheels/*.whl    
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
