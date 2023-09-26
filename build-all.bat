@@ -1,4 +1,9 @@
 set CURRENT_DIR=%~dp0
+
+rmdir /s /q opentdf-cpp
+mkdir opentdf-cpp\lib
+mkdir opentdf-cpp\include
+
 rmdir /s /q build
 mkdir build
 pushd build

@@ -53,7 +53,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin" OR ${CMAKE_SYSTEM_NAME} MATCHES "iOS")
   ENDFOREACH(LNAME)
 
   add_custom_command(OUTPUT ${TDF_COMBINED_LIB_FILENAME}
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${TDF_LIB_DIR}
     COMMAND libtool -static -o ${TDF_COMBINED_LIB_FULL_PATH} ${V_COMBINED_LIB_DIRS} ${V_COMBINED_LIB_NAMES}
     COMMENT "Creating ${TDF_COMBINED_LIB_FILENAME}..."
     VERBATIM
@@ -79,7 +78,6 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
   message(STATUS "mri file ${MRI_FILE}")
   add_custom_command(OUTPUT ${TDF_COMBINED_LIB_FILENAME}
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${TDF_LIB_DIR}
     COMMAND  ar -M < ${MRI_FILE}
     COMMENT "Combining libs and creating ${TDF_COMBINED_LIB_FILENAME}..."
     VERBATIM
@@ -98,7 +96,6 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   message(STATUS "combined lib names: ${V_COMBINED_LIB_NAMES}")
 
   add_custom_command(OUTPUT ${TDF_COMBINED_LIB_FILENAME}
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${TDF_LIB_DIR}
     COMMAND if exist ${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME} (
         lib -out:${TDF_LIB_DIR}/$<CONFIG>/${TDF_COMBINED_LIB_FILENAME} ${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME} ${V_COMBINED_LIB_DIRS} ${V_COMBINED_LIB_NAMES}
       ) else (
