@@ -233,11 +233,18 @@ jobs:
     needs: [ run-build-mac, run-build-manylinux, run-build-manylinux-aarch64, test-with-quickstart ]
     runs-on: ubuntu-latest
     steps:
-      - name: Download wheel-macos artifact
+      - name: Download wheel-macos-x86 artifact
         uses: actions/download-artifact@v3
         with:
-          name: wheel-macos
+          name: wheel-macos-x86
           path: dist
+
+      - name: Download wheel-macos-arm64 artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: wheel-macos-arm64
+          path: dist
+
       - name: Download wheel-windows artifact
         uses: actions/download-artifact@v3
         with:
