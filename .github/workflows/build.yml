@@ -245,11 +245,6 @@ jobs:
           name: wheel-macos-arm64
           path: dist
 
-      - name: Download wheel-windows artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: wheel-windows
-          path: dist
       - name: Download wheel-manylinux-amd64 artifact
         uses: actions/download-artifact@v3
         with:
