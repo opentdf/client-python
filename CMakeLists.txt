@@ -99,10 +99,8 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     COMMENT "Generating libs for Windows"
     OUTPUT ${TDF_COMBINED_LIB_FILENAME}
     COMMAND if exist ${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME} (
-        COMMENT "Generating libs for Windows - dir exists"
         lib -out:${TDF_LIB_DIR}/$<CONFIG>/${TDF_COMBINED_LIB_FILENAME} ${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME} ${V_COMBINED_LIB_DIRS} ${V_COMBINED_LIB_NAMES}
       ) else (
-        COMMENT "Generating libs for Windows - dir does not exist"
         lib -out:${TDF_LIB_DIR}/${TDF_COMBINED_LIB_FILENAME} ${TDF_LIB_DIR}/${TDF_STATIC_LIB_FILENAME} ${V_COMBINED_LIB_DIRS} ${V_COMBINED_LIB_NAMES}
       )
     VERBATIM
