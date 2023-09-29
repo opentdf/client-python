@@ -109,6 +109,7 @@ else()
   message(STATUS "${CMAKE_SYSTEM_NAME} - unknown system FIXME........")
 endif()
 
+message(STATUS "finished custom command:")
 add_custom_target(combinedLib ALL
     COMMAND echo "This is ALL target ${TDF_COMBINED_LIB_FILENAME}, and it depends on ${TEST_FILE}"
     DEPENDS ${TDF_COMBINED_LIB_FILENAME}
