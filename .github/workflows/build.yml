@@ -75,60 +75,60 @@ jobs:
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  # run-build-windows:
-  #   runs-on: windows-2019
-  #   env:
-  #     VBUILDRELEASE: Release
-  #     VBUILDDEBUG: Debug
-  #     VBUILDMODE: Release
+  run-build-windows:
+     runs-on: windows-2019
+     env:
+       VBUILDRELEASE: Release
+       VBUILDDEBUG: Debug
+       VBUILDMODE: Release
 
-  #   strategy:
-  #     matrix:
-  #       python-version: [ '3.8', '3.9', '3.10', '3.11' ]
+     strategy:
+       matrix:
+         python-version: [ '3.8', '3.9', '3.10', '3.11' ]
 
-  #   steps:
-  #     - run: echo "🎉 The job was automatically triggered by a %github.event_name% event."
-  #     - run: echo "🐧 This job is now running on a %runner.os% server hosted by GitHub!"
-  #     - run: echo "🔎 The name of your branch is %github.ref% and your repository is %github.repository%."
+     steps:
+       - run: echo "🎉 The job was automatically triggered by a %github.event_name% event."
+       - run: echo "🐧 This job is now running on a %runner.os% server hosted by GitHub!"
+       - run: echo "🔎 The name of your branch is %github.ref% and your repository is %github.repository%."
 
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v3
-  #     - run: echo "💡 The %github.repository% repository has been cloned to the runner."
+       - name: Check out repository code
+         uses: actions/checkout@v3
+       - run: echo "💡 The %github.repository% repository has been cloned to the runner."
 
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
+       - name: Set up Python
+         uses: actions/setup-python@v4
+         with:
+           python-version: ${{ matrix.python-version }}
 
-  #     - name: Install Conan
-  #       run: pip3 install conan==${{ env.VCONAN_VER }} --force
+       - name: Install Conan
+         run: pip3 install conan==${{ env.VCONAN_VER }} --force
 
-  #     - name: Check out client-cpp code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         repository: opentdf/client-conan
-  #         ref: ${{ env.VCONAN_RECIPE_VER }}
-  #         path: client-conan
+       - name: Check out client-cpp code
+         uses: actions/checkout@v3
+         with:
+           repository: opentdf/client-conan
+           ref: ${{ env.VCONAN_RECIPE_VER }}
+           path: client-conan
 
-  #     - name: Get client-cpp into conan local cache, built from repo if necessary
-  #       run: |
-  #         cd ${{ github.workspace }}
-  #         cd client-conan
-  #         conan create recipe/all opentdf-client/${{ env.VCLIENT_CPP_VER }}@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=${{ env.VCONAN_BRANCH_VERSION }}
+       - name: Get client-cpp into conan local cache, built from repo if necessary
+         run: |
+           cd ${{ github.workspace }}
+           cd client-conan
+           conan create recipe/all opentdf-client/${{ env.VCLIENT_CPP_VER }}@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=${{ env.VCONAN_BRANCH_VERSION }}
 
-  #     - name: Setup MSBuild
-  #       uses: microsoft/setup-msbuild@v1
+       - name: Setup MSBuild
+         uses: microsoft/setup-msbuild@v1
 
-  #     - name: Run build
-  #       run: |
-  #         cd ${{ github.workspace }}
-  #         .\build-all.bat
+       - name: Run build
+         run: |
+           cd ${{ github.workspace }}
+           .\build-all.bat
 
-  #     - name: Upload Windows wheels
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: wheel-windows
-  #         path: src/python-bindings/pips/dist/*.whl
+       - name: Upload Windows wheels
+         uses: actions/upload-artifact@v3
+         with:
+           name: wheel-windows
+           path: src/python-bindings/pips/dist/*.whl
 
   run-build-manylinux:
     runs-on: ubuntu-latest

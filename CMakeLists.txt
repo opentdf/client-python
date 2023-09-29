@@ -94,8 +94,11 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
       set(V_COMBINED_LIB_NAMES ${V_COMBINED_LIB_NAMES} "${LNAME}.lib")
   ENDFOREACH(LNAME)
   message(STATUS "combined lib names: ${V_COMBINED_LIB_NAMES}")
+  message(STATUS "Config mode: $<CONFIG>")
 
-  add_custom_command(OUTPUT ${TDF_COMBINED_LIB_FILENAME}
+  add_custom_command(
+    COMMENT "Generating libs for Windows"
+    OUTPUT ${TDF_COMBINED_LIB_FILENAME}
     COMMAND if exist ${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME} (
         lib -out:${TDF_LIB_DIR}/$<CONFIG>/${TDF_COMBINED_LIB_FILENAME} ${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME} ${V_COMBINED_LIB_DIRS} ${V_COMBINED_LIB_NAMES}
       ) else (
