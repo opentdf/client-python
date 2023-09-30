@@ -95,6 +95,11 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   ENDFOREACH(LNAME)
   message(STATUS "combined lib names: ${V_COMBINED_LIB_NAMES}")
 
+  file(GLOB LIBS "${TDF_LIB_DIR}/*.lib")
+  foreach(d ${LIBS})
+    message(STATUS "output lib names: ${e}")
+  endforeach()
+
   add_custom_command(
     COMMENT "Generating libs for Windows"
     OUTPUT ${TDF_COMBINED_LIB_FILENAME}
@@ -110,10 +115,7 @@ else()
 endif()
 
 message(STATUS "finished custom command:")
-file(GLOB LIBS "${TDF_LIB_DIR}/*.lib")
-foreach(d ${LIBS})
-  message(STATUS "output lib names: ${e}")
-endforeach()
+
 add_custom_target(combinedLib ALL
     COMMENT "add_custom_target combinedLib"
     #COMMAND echo "This is ALL target ${TDF_COMBINED_LIB_FILENAME}, and it depends on ${TEST_FILE}"
