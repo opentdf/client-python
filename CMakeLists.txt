@@ -115,6 +115,7 @@ foreach(d ${LIBS})
   message(STATUS "output lib names: ${e}")
 endforeach()
 add_custom_target(combinedLib ALL
+    COMMENT "add_custom_target combinedLib"
     #COMMAND echo "This is ALL target ${TDF_COMBINED_LIB_FILENAME}, and it depends on ${TEST_FILE}"
     DEPENDS ${TDF_COMBINED_LIB_FILENAME}
     DEPENDS ${TDF_CLIENT_COPY_HEADER}
