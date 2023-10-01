@@ -19,7 +19,7 @@ pip install wheel==%VER_WHEEL%
 REM Install the prerequisites
 conan --version
 conan install .. --build=missing
-REM conan build .. --build-folder .
+conan build .. --build-folder .
 set builderrorlevel=%errorlevel%
 if %builderrorlevel% neq 0 goto fin
 
