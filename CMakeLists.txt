@@ -84,6 +84,7 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   )
 
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  set(TDF_STATIC_LIB_FILENAME ${CMAKE_STATIC_LIBRARY_PREFIX}${PROJECT_NAME}${TDF_STATIC_LIB_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX})
 
   FOREACH (LDIR ${CONAN_LIB_DIRS})
     set(V_COMBINED_LIB_DIRS ${V_COMBINED_LIB_DIRS} /LIBPATH:${LDIR})
@@ -95,30 +96,36 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   ENDFOREACH(LNAME)
   message(STATUS "combined lib names: ${V_COMBINED_LIB_NAMES}")
 
-  file(GLOB LIBS "${TDF_LIB_DIR}/*.lib")
-  foreach(d ${LIBS})
-    message(STATUS "output lib names: ${e}")
-  endforeach()
-
-  add_custom_command(
-    COMMENT "Generating libs for Windows"
-    OUTPUT ${TDF_COMBINED_LIB_FILENAME}
-    COMMAND if exist "${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME}" (
-        lib /out:"${TDF_LIB_DIR}/$<CONFIG>/${TDF_COMBINED_LIB_FILENAME}" "${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME}" "${V_COMBINED_LIB_DIRS} ${V_COMBINED_LIB_NAMES}"
-      ) else (
-        lib /out:"${TDF_LIB_DIR}/${TDF_COMBINED_LIB_FILENAME}" "${TDF_LIB_DIR}/${TDF_STATIC_LIB_FILENAME}" "${V_COMBINED_LIB_DIRS} ${V_COMBINED_LIB_NAMES}"
-      )
-    VERBATIM
+  add_custom_command(OUTPUT ${TDF_COMBINED_LIB_FILENAME}
+          COMMAND if exist ${TDF_LIB_DIR}/$<CONFIG>/${TDF_STATIC_LIB_FILENAME} (
+          lib -out:${TDF_LIB_DIR}/$<CONFIG>/${TDF_COMBINED_LIB_FILENAME}
+          ${CONAN_LIB_DIRS_OPENTDF-CLIENT}/opentdf_static.lib
+          ${CONAN_LIB_DIRS_BOOST}/libboost_regex.lib
+          ${CONAN_LIB_DIRS_BOOST}/libboost_iostreams.lib
+          ${CONAN_LIB_DIRS_OPENSSL}/libcrypto.lib
+          ${CONAN_LIB_DIRS_OPENSSL}/libssl.lib
+          ${CONAN_LIB_DIRS_LIBXML2}/libxml2_a.lib
+          ${CONAN_LIB_DIRS_ZLIB}/zlib.lib
+          ${CONAN_LIB_DIRS_LIBICONV}/iconv.lib
+  ) else (
+          lib -out:${TDF_LIB_DIR}/${TDF_COMBINED_LIB_FILENAME}
+          ${CONAN_LIB_DIRS_OPENTDF-CLIENT}/opentdf_static.lib
+          ${CONAN_LIB_DIRS_BOOST}/libboost_regex.lib
+          ${CONAN_LIB_DIRS_BOOST}/libboost_iostreams.lib
+          ${CONAN_LIB_DIRS_OPENSSL}/libcrypto.lib
+          ${CONAN_LIB_DIRS_OPENSSL}/libssl.lib
+          ${CONAN_LIB_DIRS_LIBXML2}/libxml2_a.lib
+          ${CONAN_LIB_DIRS_ZLIB}/zlib.lib
+          ${CONAN_LIB_DIRS_LIBICONV}/iconv.lib
+  )
+          VERBATIM
   )
 else()
   message(STATUS "${CMAKE_SYSTEM_NAME} - unknown system FIXME........")
 endif()
 
-message(STATUS "finished custom command:")
-
 add_custom_target(combinedLib ALL
-    COMMENT "add_custom_target combinedLib"
-    #COMMAND echo "This is ALL target ${TDF_COMBINED_LIB_FILENAME}, and it depends on ${TEST_FILE}"
+    COMMAND echo "This is ALL target ${TDF_COMBINED_LIB_FILENAME}, and it depends on ${TEST_FILE}"
     DEPENDS ${TDF_COMBINED_LIB_FILENAME}
     DEPENDS ${TDF_CLIENT_COPY_HEADER}
     VERBATIM
