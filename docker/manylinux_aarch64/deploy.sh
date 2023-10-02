@@ -17,6 +17,7 @@ docker run --rm \
    -e VCLIENT_CPP_VER \
    -e VCONAN_BRANCH_VERSION \
    -e VCONAN_RECIPE_VER \
+   -e VEXPORT_COMBINED_LIB \
    -e VIRTRU_RUN_E2E_TESTS=false \
    $DOCKER_IMAGE \
    ./docker/manylinux_aarch64/install_req.sh

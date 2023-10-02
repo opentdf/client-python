@@ -1,5 +1,10 @@
 set CURRENT_DIR=%~dp0
-rmdir /s /q build
+
+if exist opentdf-cpp rmdir /s /q opentdf-cpp
+mkdir opentdf-cpp\lib
+mkdir opentdf-cpp\include
+
+if exist build rmdir /s /q build
 mkdir build
 pushd build
 
@@ -14,6 +19,7 @@ pip install wheel==%VER_WHEEL%
 REM Install the prerequisites
 conan --version
 conan install .. --build=missing
+conan build .. --build-folder .
 set builderrorlevel=%errorlevel%
 if %builderrorlevel% neq 0 goto fin
 
