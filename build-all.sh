@@ -32,10 +32,7 @@ conan build .. --build-folder .
 # We should able to use cibuildwheel on windows and linux
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
-  export CIBW_ARCHS_MACOS="x86_64"
-  export CIBW_SKIP="cp36-* cp12-*"
   python3 -m pip install --upgrade pip
-  python3 -m pip install cibuildwheel --force
-  cibuildwheel --platform macos
+  python3 -m pip install pybind11 twine --force
+  python3 setup.py bdist_wheel --plat-name $WHEEL_OSX_PLAT_NAME
 fi
-

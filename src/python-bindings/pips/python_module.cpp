@@ -41,6 +41,10 @@ PYBIND11_MODULE(opentdf, tdf) {
         .value("Handling", AssertionType::Handling)
         .value("Base", AssertionType::Base);
 
+    py::enum_<EncryptionState>(tdf, "EncryptionState")
+        .value("Enable", EncryptionState::Enable)
+        .value("Disable", EncryptionState::Disable);    
+
     py::enum_<Scope>(tdf, "Scope")
         .value("TDO", Scope::TDO)
         .value("PAYL", Scope::PAYL)
@@ -418,6 +422,13 @@ PYBIND11_MODULE(opentdf, tdf) {
                  log_level(LogLevel): The log level
 
             )pbdoc")
+        .def("set_encryption_state", &TDFClient::setEncryptionState, py::arg("encryption_state"), R"pbdoc(
+              Set the encryption state of the TDFs created, by default encryption state is enabled.
+
+              Args:
+                 encryption_state(EncryptionState): The encryption state
+
+            )pbdoc")
         .def("enable_benchmark", &TDFClient::enableBenchmark, R"pbdoc(
               Enable benchmark logging
             )pbdoc")     
@@ -438,6 +449,18 @@ PYBIND11_MODULE(opentdf, tdf) {
 
               Returns:
                  JSON string representing a TDF Policy Object.
+            )pbdoc")
+        .def("set_key_to_sign_assertion", &TDFClient::setKeyToSignAssertion, py::arg("private_key_in_pem_format"), R"pbdoc(
+              Set the private key to sign the assertion. NOTE: This is only used for unencrypted tdf
+
+              Args:
+                 private_key_in_pem_format(string) - Private key in PEM format
+            )pbdoc")
+        .def("set_key_to_verify_assertion", &TDFClient::setKeyToVerifyAssertion, py::arg("public_key_in_pem_format"), R"pbdoc(
+              Set the public key to verify the assertion. NOTE: NOTE: This is only used for unencrypted tdf
+
+              Args:
+                 public_key_in_pem_format(string) - Public key in pem format
             )pbdoc")
         .def("set_encrypted_metadata", &TDFClient::setEncryptedMetadata, py::arg("metadata"), R"pbdoc(
               Assign the metadata that will be encrypted and stored in the TDF, separately from the data
