@@ -76,7 +76,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
   run-build-mac-m1:
-      runs-on: macos-13-large
+      runs-on: macos-13-xlarge
     
       strategy:
         matrix:
