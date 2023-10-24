@@ -6,6 +6,7 @@ set -ex
 
 export OPENTDF_BUILD="build"
 export OPENTDF_DST="opentdf-cpp"
+ARCH=`uname -m`
 
 # This naming contains the *MINIMUM* OS version supported, which may not be the one running currently
 if [[ $OSTYPE == "darwin"* ]]; then
@@ -29,13 +30,12 @@ conan install .. --build=missing
 conan build .. --build-folder .
 
 
-# We should able to use cibuildwheel on windows and linux
+# # We should able to use cibuildwheel on windows and linux
 cd ../src/python-bindings/pips
 if [[ $OSTYPE == "darwin"* ]]; then
-  export CIBW_ARCHS_MACOS="x86_64"
+  export CIBW_ARCHS_MACOS=$ARCH
   export CIBW_SKIP="cp36-* cp12-*"
   python3 -m pip install --upgrade pip
   python3 -m pip install cibuildwheel --force
   cibuildwheel --platform macos
 fi
-

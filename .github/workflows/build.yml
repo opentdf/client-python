@@ -12,13 +12,13 @@ env:
   VBUILD_UNIT_TESTS: false
   VCONAN_VER: 1.59.0
   # Would be nice if this value was set automagically when client-cpp is released and consumed everywhere
-  VCLIENT_CPP_VER: 1.5.3
+  VCLIENT_CPP_VER: 1.5.5
   VCONAN_BRANCH_VERSION: "True"
   # recipe should usually pull from 'main' but can be changed to a branch name if recipe changes are pending
   VCONAN_RECIPE_VER: main
   VEXPORT_COMBINED_LIB: "true"
 jobs:
-  run-build-mac:
+  run-build-mac-x86:
     runs-on: macos-11
 
     strategy:
@@ -67,14 +67,59 @@ jobs:
           name: wheel-macos-x86
           path: src/python-bindings/pips/wheelhouse/*.whl
 
-      - name: Upload MacOS arm64 wheels
-        uses: actions/upload-artifact@v3
-        with:
-          name: wheel-macos-arm64
-          path: m1-wheels/*.whl    
-
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
+  run-build-mac-m1:
+      runs-on: macos-13-xlarge
+    
+      strategy:
+        matrix:
+          python-version: [ '3.11' ]
+    
+      steps:
+        - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+        - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+        - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+        - name: Check out repository code
+          uses: actions/checkout@v3
+        - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+    
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+              python-version: ${{ matrix.python-version }}
+    
+        - name: Install Conan
+          run: pip3 install conan==${{ env.VCONAN_VER }} --force
+    
+        - name: Check out client-cpp code
+          uses: actions/checkout@v3
+          with:
+            repository: opentdf/client-conan
+            ref: ${{ env.VCONAN_RECIPE_VER }}
+            path: client-conan
+        - name: Get client-cpp into conan local cache, built from repo if necessary
+          run: |
+            cd ${{ github.workspace }}
+            cd client-conan
+            conan create recipe/all opentdf-client/${{ env.VCLIENT_CPP_VER }}@ -pr:b=default --build=opentdf-client --build=missing -o opentdf-client:branch_version=${{ env.VCONAN_BRANCH_VERSION }}
+        - name: Run build
+          env:
+            CIBW_ARCHS_MACOS: arm64
+            CIBW_SKIP: cp36-* cp12-*
+    
+          run: |
+            cd ${{ github.workspace }}
+            ./build-all.sh
+    
+        - name: Upload MacOS arm64 wheels
+          uses: actions/upload-artifact@v3
+          with:
+            name: wheel-macos-arm64
+            path: src/python-bindings/pips/wheelhouse/*.whl
+    
+        - run: echo "🍏 This job's status is ${{ job.status }}."
+    
   run-build-windows:
      runs-on: windows-2019
      env:
@@ -230,7 +275,7 @@ jobs:
 
 
   upload_to_pypi:
-    needs: [ run-build-mac, run-build-manylinux, run-build-manylinux-aarch64, test-with-quickstart ]
+    needs: [ run-build-mac-x86, run-build-mac-m1, run-build-manylinux, run-build-manylinux-aarch64, test-with-quickstart ]
     runs-on: ubuntu-latest
     steps:
       - name: Download wheel-macos-x86 artifact
