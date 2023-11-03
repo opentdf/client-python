@@ -11,7 +11,7 @@ class VirtruTDF3LibConan(ConanFile):
 
     def requirements(self):
         self.requires("pybind11/2.10.1@")
-        self.requires("opentdf-client/1.5.5@")
+        self.requires("opentdf-client/1.5.5-alpha@")
 
     def build(self):
         cmake = CMake(self)
